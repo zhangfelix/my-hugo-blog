@@ -1,0 +1,33 @@
+baseURL = "https://zhangfelix.github.io"
+languageCode = "zh-CN"
+title = "My New Hugo Site"
+theme = "dream"
+defaultContentLanguage = "zh"
+hasCJKLanguage = true
+enableRobotsTXT = true
+googleAnalytics = "UA-98295641-1"
+disqusShortname = "https-zhangfelix-github-io"
+
+[params]
+  # background = "black"
+  # backgroundImage = "/me/background.jpg"
+  linkColor = "seagreen"
+
+  author = "Nan"
+  description = "g1eny0ung的生活记录～"
+  avatar = "/me/yy.jpg"
+  motto = "一些信息"
+
+  email = "g1enyy0ung@gmail.com"
+  twitter = "g1eny0ung"
+  facebook = "g1eny0ung"
+  instagram = "g1enyy0ung"
+  linkedin = "钺杨g1eny0ung"
+  github = "g1eny0ung"
+  stackoverflow = "5676489/g1eny0ung"
+  codepen = "g1eny0ung"
+
+  siteStartYear = 2016
+
+  favicon = "/favicon.ico"
+
