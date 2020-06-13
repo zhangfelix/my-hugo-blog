@@ -1,22 +1,22 @@
-baseURL = "https://zhangfelix.github.io"
+baseURL = "https://www.zhangfelix.com"
 languageCode = "zh-CN"
-title = "My New Hugo Site"
+title = "独白"
 theme = "dream"
 defaultContentLanguage = "zh"
 hasCJKLanguage = true
 enableRobotsTXT = true
-googleAnalytics = "UA-98295641-1"
-disqusShortname = "https-zhangfelix-github-io"
+googleAnalytics = "UA-169268545-1"
+disqusShortname = "zhangfelix-blog"
 
 [params]
   # background = "black"
-  # backgroundImage = "/me/background.jpg"
+  backgroundImage = "/global/background.jpg"
   linkColor = "seagreen"
 
   author = "Nan"
-  description = "g1eny0ung的生活记录～"
+  description = "我的声音"
   avatar = "/global/avatar.jpg"
-  motto = "一些信息"
+  motto = "Monologue"
 
   email = "zhn.i@hotmail.com"
   twitter = "zhangnfelix"
@@ -31,3 +31,7 @@ disqusShortname = "https-zhangfelix-github-io"
 
   favicon = "/global/favicon.ico"
 
+  # dark mode
+  darkLinkColor = "darkseagreen"
+  darkNav = true
+  dark404 = true
