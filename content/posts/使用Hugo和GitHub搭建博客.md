@@ -122,7 +122,7 @@ shortname在[Disqus][6]的官网进行注册便可以获得。在注册过程就
 
 ### 创建GitHub项目
 
-首先我们需要在GitHub上新建两个仓库分别用来保存站点源文件和发布站点。其中用来存放站点源文件的仓库可以根据自己喜好命名（例如`<YOUR-PROJECT> `），而用来发布站点的仓库的名称需要使用`<USERNAME>.github.io`。
+首先我们需要在GitHub上新建两个仓库分别用来保存站点源文件和发布站点。其中用来存放站点源文件的仓库可以根据自己喜好命名（例如`<YOUR-PROJECT>`），而用来发布站点的仓库的名称需要使用`<USERNAME>.github.io`。
 
 ### 本地项目与GitHub仓库同步
 
@@ -210,7 +210,7 @@ shortname在[Disqus][6]的官网进行注册便可以获得。在注册过程就
 
 同之前新建站点一样，首先在终端中进入想要放置博客站点内容的目录下，使用`git clone`命令拉取`GitHub`上的仓库。然后将`submodule`初始化，并更新。
 
-	git clone <YOUR-PROJECT-URL> && cd <YOUR-PROJECT>
+	git clone <YOUR-PROJECT-URL> myblog && cd <YOUR-PROJECT>
 	git submodule init
 	git submodule update
 
@@ -247,7 +247,7 @@ shortname在[Disqus][6]的官网进行注册便可以获得。在注册过程就
 	git submodule init
 	git submodule update
 
-在当前仓库里面初始化和更新子模块。也可以使用`git submodule update --init`。
+在当前仓库里面初始化和更新子模块。也可以使用`git submodule update --init`。或者使用`git clone <YOUR-PROJECT-URL> myblog --recursive`在新的环境克隆仓库及所有子模块。
 
 	cd public
 	git checkout master
