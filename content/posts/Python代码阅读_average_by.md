@@ -2,7 +2,7 @@
 title: Python代码阅读_average_by
 date: 2020-06-18T19:57:04+08:00
 lastmod: 2020-06-18T19:57:04+08:00
-author: Author Name
+author: Zhang nan
 cover: /post/Python代码阅读_average_by-cover.jpg
 categories: ["技术"]
 tags: ["Python"]
