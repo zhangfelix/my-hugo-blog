@@ -6,7 +6,7 @@ author: Zhang nan
 cover: /post/Python代码阅读_列表的最小公倍数-cover.jpg
 categories: ["技术"]
 tags: ["Python"]
-draft: true
+draft: false
 ---
 
 本文中的代码片段来自于[30-seconds-of-python](https://github.com/30-seconds/30-seconds-of-python)。
