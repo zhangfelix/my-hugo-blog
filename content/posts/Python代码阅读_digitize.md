@@ -1,5 +1,5 @@
 ---
-title: Python代码阅读_digitize
+title: Python代码阅读：digitize
 date: 2020-06-19T19:19:35+08:00
 lastmod: 2020-06-19T19:19:35+08:00
 author: Zhang nan

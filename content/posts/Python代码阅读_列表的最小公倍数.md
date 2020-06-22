@@ -1,5 +1,5 @@
 ---
-title: Python代码阅读_列表的最小公倍数
+title: Python代码阅读：列表的最小公倍数
 date: 2020-06-20T17:12:26+08:00
 lastmod: 2020-06-20T17:12:26+08:00
 author: Zhang nan
