@@ -25,7 +25,14 @@ git commit -m "$msg"
 # Push source and build repos.
 git push origin master
 
-# Back to the origin folder
-# cd ..
+# Back to the site source folder
+cd ..
 
-# rm -rf public
+# Add changes to git.
+git add .
+
+# Commit changes.
+git commit -m "$msg"
+
+# Push site source.
+git push origin master
