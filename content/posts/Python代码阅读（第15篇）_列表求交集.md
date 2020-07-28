@@ -3,7 +3,7 @@ title: Python代码阅读（第15篇）：列表求交集
 date: 2020-07-27T12:15:18+08:00
 lastmod: 2020-07-27T12:15:18+08:00
 author: Zhang nan
-cover: /img/Python代码阅读（第15篇）_列表求交集-cover.jpg
+cover: /post/Python代码阅读（第15篇）_列表求交集-cover.jpg
 categories: ["技术"]
 tags: ["Python"]
 draft: false
