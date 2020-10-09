@@ -2,7 +2,7 @@
 title: Python代码阅读（第7篇）：列表分组计数
 date: 2020-06-28T13:44:44+08:00
 lastmod: 2020-06-28T13:44:44+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第7篇）_列表分组计数-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

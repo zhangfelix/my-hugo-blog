@@ -2,7 +2,7 @@
 title: Python代码阅读（第21篇）：将变量名称转换为蛇式命名风格
 date: 2020-08-06T19:25:19+08:00
 lastmod: 2020-08-06T19:25:19+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第21篇）_将变量名称转换为蛇式命名风格-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

@@ -2,7 +2,7 @@
 title: Python代码阅读（第43篇）：构造组合函数
 date: 2020-09-22T12:33:15+08:00
 lastmod: 2020-09-22T12:33:15+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第43篇）_构造组合函数-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

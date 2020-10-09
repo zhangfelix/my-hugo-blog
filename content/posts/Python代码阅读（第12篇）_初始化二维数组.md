@@ -2,7 +2,7 @@
 title: Python代码阅读（第12篇）：初始化二维数组
 date: 2020-07-22T12:23:53+08:00
 lastmod: 2020-07-22T12:23:53+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第12篇）_初始化二维数组-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

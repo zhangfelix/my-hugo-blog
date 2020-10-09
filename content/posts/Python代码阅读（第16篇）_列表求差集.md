@@ -2,7 +2,7 @@
 title: Python代码阅读（第16篇）：列表求差集
 date: 2020-07-28T12:26:46+08:00
 lastmod: 2020-07-28T12:26:46+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第16篇）_列表求差集-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

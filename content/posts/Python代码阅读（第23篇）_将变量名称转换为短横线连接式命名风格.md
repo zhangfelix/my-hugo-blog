@@ -2,7 +2,7 @@
 title: Python代码阅读（第23篇）：将变量名称转换为短横线连接式命名风格
 date: 2020-08-12T12:10:25+08:00
 lastmod: 2020-08-12T12:10:25+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第23篇）_将变量名称转换为短横线连接式命名风格-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

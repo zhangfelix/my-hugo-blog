@@ -2,7 +2,7 @@
 title: Python代码阅读（第34篇）：列表元素出现频率字典
 date: 2020-09-03T12:27:43+08:00
 lastmod: 2020-09-03T12:27:43+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第34篇）_列表元素出现频率字典-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

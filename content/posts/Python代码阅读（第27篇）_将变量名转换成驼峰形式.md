@@ -2,7 +2,7 @@
 title: Python代码阅读（第27篇）：将变量名转换成驼峰形式
 date: 2020-08-20T17:12:59+08:00
 lastmod: 2020-08-20T17:12:59+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第27篇）_将变量名转换成驼峰形式-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

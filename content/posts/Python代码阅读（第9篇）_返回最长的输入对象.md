@@ -2,7 +2,7 @@
 title: Python代码阅读（第9篇）：返回最长的输入对象
 date: 2020-06-30T12:03:09+08:00
 lastmod: 2020-06-30T12:03:09+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第9篇）_返回最长的输入对象-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

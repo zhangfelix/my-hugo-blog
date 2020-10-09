@@ -2,7 +2,7 @@
 title: Python代码阅读：列表的最小公倍数
 date: 2020-06-20T22:12:26+08:00
 lastmod: 2020-06-20T22:12:26+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读_列表的最小公倍数-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

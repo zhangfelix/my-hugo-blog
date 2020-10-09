@@ -2,7 +2,7 @@
 title: Python代码阅读（第25篇）：将多行字符串拆分成列表
 date: 2020-08-18T18:53:31+08:00
 lastmod: 2020-08-18T18:53:31+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第25篇）_将多行字符串拆分成列表-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

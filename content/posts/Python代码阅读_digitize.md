@@ -2,7 +2,7 @@
 title: Python代码阅读：digitize
 date: 2020-06-19T22:19:35+08:00
 lastmod: 2020-06-19T22:19:35+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读_digitize-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

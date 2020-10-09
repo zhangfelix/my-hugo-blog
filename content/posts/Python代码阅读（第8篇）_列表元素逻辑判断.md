@@ -2,7 +2,7 @@
 title: Python代码阅读（第8篇）：列表元素逻辑判断
 date: 2020-06-29T14:54:08+08:00
 lastmod: 2020-06-29T14:54:08+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第8篇）_列表元素逻辑判断-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

@@ -2,7 +2,7 @@
 title: Python代码阅读（第18篇）：变形词判断
 date: 2020-07-30T12:33:09+08:00
 lastmod: 2020-07-30T12:33:09+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第18篇）_变形词判断-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

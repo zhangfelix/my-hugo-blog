@@ -2,7 +2,7 @@
 title: Python代码阅读（第39篇）：获取列表出现频率最高的元素
 date: 2020-09-14T12:30:06+08:00
 lastmod: 2020-09-14T12:30:06+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第39篇）_获取列表出现频率最高的元素-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

@@ -2,7 +2,7 @@
 title: Python代码阅读（第31篇）：将一个列表分割成指定大小的小列表
 date: 2020-08-31T14:58:13+08:00
 lastmod: 2020-08-31T14:58:13+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第31篇）_将一个列表分割成指定大小的小列表-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

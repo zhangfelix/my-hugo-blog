@@ -2,7 +2,7 @@
 title: Python代码阅读（第33篇）：反转字典
 date: 2020-09-02T17:39:44+08:00
 lastmod: 2020-09-02T17:39:44+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第33篇）_反转字典-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

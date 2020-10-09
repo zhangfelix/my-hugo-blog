@@ -2,7 +2,7 @@
 title: 使用Hugo和GitHub搭建博客
 date: 2020-06-13T19:45:22+08:00
 lastmod: 2020-06-14T15:58:22+08:00
-author: Zhang nan
+author: Felix
 cover: /post/使用Hugo和GitHub搭建博客-cover.jpg
 categories: ["技术"]
 tags: ["Hugo", "GitHub"]
@@ -54,7 +54,7 @@ draft: false
 	title: my-first-post
 	date: 2020-06-13T19:45:22+08:00
 	lastmod: 2020-06-13T19:45:22+08:00
-	author: Zhang nan
+	author: Felix
 	cover: /post/xxx-cover.jpg
 	categories: ["技术"]
 	tags: ["Hugo", "GitHub"]

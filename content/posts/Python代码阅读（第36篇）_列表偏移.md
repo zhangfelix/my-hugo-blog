@@ -2,7 +2,7 @@
 title: Python代码阅读（第36篇）：列表偏移
 date: 2020-09-09T12:26:59+08:00
 lastmod: 2020-09-09T12:26:59+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第36篇）_列表偏移-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

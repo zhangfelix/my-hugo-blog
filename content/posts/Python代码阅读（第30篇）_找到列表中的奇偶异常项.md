@@ -2,7 +2,7 @@
 title: Python代码阅读（第30篇）：找到列表中的奇偶异常项
 date: 2020-08-27T18:52:15+08:00
 lastmod: 2020-08-27T18:52:15+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第30篇）_找到列表中的奇偶异常项-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

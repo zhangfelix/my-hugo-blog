@@ -2,7 +2,7 @@
 title: Python代码阅读（第13篇）：检测列表中的元素是否都一样
 date: 2020-07-23T12:03:59+08:00
 lastmod: 2020-07-23T12:03:59+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第13篇）_检测列表中的元素是否都一样-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

@@ -2,7 +2,7 @@
 title: Python代码阅读：根据给定的函数对列表中的元素进行分组
 date: 2020-06-28T09:30:57+08:00
 lastmod: 2020-06-28T09:30:57+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读_根据给定的函数对列表中的元素进行分组-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

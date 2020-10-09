@@ -2,7 +2,7 @@
 title: Python代码阅读（第38篇）：根据谓词函数和属性字符串构造判断函数
 date: 2020-09-11T18:33:46+08:00
 lastmod: 2020-09-11T18:33:46+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第38篇）_根据谓词函数和属性字符串构造判断函数-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

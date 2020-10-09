@@ -2,7 +2,7 @@
 title: Python代码阅读（第19篇）：合并多个字典
 date: 2020-08-03T09:52:36+08:00
 lastmod: 2020-08-03T09:52:36+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第19篇）_合并多个字典-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

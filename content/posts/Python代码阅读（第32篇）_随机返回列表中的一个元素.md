@@ -2,7 +2,7 @@
 title: Python代码阅读（第32篇）：随机返回列表中的一个元素
 date: 2020-09-01T17:59:26+08:00
 lastmod: 2020-09-01T17:59:26+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第32篇）_随机返回列表中的一个元素-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

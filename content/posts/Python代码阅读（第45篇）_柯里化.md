@@ -2,7 +2,7 @@
 title: Python代码阅读（第45篇）：柯里化
 date: 2020-09-27T12:30:16+08:00
 lastmod: 2020-09-27T12:30:16+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第45篇）_柯里化-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

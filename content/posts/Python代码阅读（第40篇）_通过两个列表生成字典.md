@@ -2,7 +2,7 @@
 title: Python代码阅读（第40篇）：通过两个列表生成字典
 date: 2020-09-15T12:37:57+08:00
 lastmod: 2020-09-15T12:37:57+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第40篇）_通过两个列表生成字典-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

@@ -2,7 +2,7 @@
 title: Python代码阅读：根据过滤器拆分列表
 date: 2020-06-23T21:45:19+08:00
 lastmod: 2020-06-23T21:45:19+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读_根据过滤器拆分列表-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

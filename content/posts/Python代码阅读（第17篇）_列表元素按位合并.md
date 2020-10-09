@@ -2,7 +2,7 @@
 title: Python代码阅读（第17篇）：列表元素按位合并
 date: 2020-07-29T12:30:50+08:00
 lastmod: 2020-07-29T12:30:50+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第17篇）_列表元素按位合并-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

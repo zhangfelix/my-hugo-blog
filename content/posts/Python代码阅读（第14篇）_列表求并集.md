@@ -2,7 +2,7 @@
 title: Python代码阅读（第14篇）：列表求并集
 date: 2020-07-24T12:03:43+08:00
 lastmod: 2020-07-24T12:03:43+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第14篇）_列表求并集-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

@@ -2,7 +2,7 @@
 title: Python代码阅读（第41篇）：矩阵转置
 date: 2020-09-17T12:36:40+08:00
 lastmod: 2020-09-17T12:36:40+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第41篇）_矩阵转置-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

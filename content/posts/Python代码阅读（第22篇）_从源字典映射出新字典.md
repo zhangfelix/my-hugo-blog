@@ -2,7 +2,7 @@
 title: Python代码阅读（第22篇）：从源字典映射出新字典
 date: 2020-08-10T18:30:37+08:00
 lastmod: 2020-08-10T18:30:37+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第22篇）_从源字典映射出新字典-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

@@ -2,7 +2,7 @@
 title: Python代码阅读（第26篇）：将列表映射成字典
 date: 2020-08-19T17:28:14+08:00
 lastmod: 2020-08-19T17:28:14+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第26篇）_将列表映射成字典-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

@@ -2,7 +2,7 @@
 title: Python代码阅读（第37篇）：获取两个列表中相同的元素
 date: 2020-09-10T12:54:58+08:00
 lastmod: 2020-09-10T12:54:58+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第37篇）_获取两个列表中相同的元素-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

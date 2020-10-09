@@ -2,7 +2,7 @@
 title: Python代码阅读（第47篇）：从列表右边开始执行给定函数
 date: 2020-09-29T18:31:39+08:00
 lastmod: 2020-09-29T18:32:39+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第47篇）_从列表右边开始执行给定函数-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

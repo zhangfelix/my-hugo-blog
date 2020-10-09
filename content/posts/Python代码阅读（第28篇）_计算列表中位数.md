@@ -2,7 +2,7 @@
 title: Python代码阅读（第28篇）：计算列表中位数
 date: 2020-08-25T16:32:43+08:00
 lastmod: 2020-08-25T16:32:43+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第28篇）_计算列表中位数-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

@@ -2,7 +2,7 @@
 title: Python代码阅读（第29篇）：使用初始化种子和迭代函数生成列表
 date: 2020-08-26T18:00:56+08:00
 lastmod: 2020-08-26T18:00:56+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第29篇）_使用初始化种子和迭代函数生成列表-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

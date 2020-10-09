@@ -2,7 +2,7 @@
 title: Python代码阅读（第20篇）：展开嵌套列表2
 date: 2020-08-03T12:24:50+08:00
 lastmod: 2020-08-03T12:24:50+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第20篇）_展开嵌套列表2-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

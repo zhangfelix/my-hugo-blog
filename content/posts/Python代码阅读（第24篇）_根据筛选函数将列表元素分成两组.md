@@ -2,7 +2,7 @@
 title: Python代码阅读（第24篇）：根据筛选函数将列表元素分成两组
 date: 2020-08-13T12:15:46+08:00
 lastmod: 2020-08-13T12:15:46+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第24篇）_根据筛选函数将列表元素分成两组-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

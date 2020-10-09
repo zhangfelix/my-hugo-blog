@@ -2,7 +2,7 @@
 title: {{ replace .TranslationBaseName "-" " " | title }}
 date: {{ .Date }}
 lastmod: {{ .Date }}
-author: Zhang nan
+author: Felix
 cover: /post/cover.jpg
 categories: ["category1"]
 tags: ["tag1", "tag2"]

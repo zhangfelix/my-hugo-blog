@@ -2,7 +2,7 @@
 title: Python代码阅读（第42篇）：将输入转换成列表形式
 date: 2020-09-21T12:30:17+08:00
 lastmod: 2020-09-21T12:30:17+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第42篇）_将输入转换成列表形式-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

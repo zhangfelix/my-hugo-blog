@@ -2,7 +2,7 @@
 title: Python代码阅读（第44篇）：寻找符合条件的元素的位置
 date: 2020-09-25T18:50:00+08:00
 lastmod: 2020-09-25T18:50:00+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第44篇）_寻找符合条件的元素的位置-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

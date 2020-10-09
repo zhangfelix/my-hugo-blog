@@ -2,7 +2,7 @@
 title: Python代码阅读（第10篇）：随机打乱列表元素
 date: 2020-07-01T20:15:00+08:00
 lastmod: 2020-07-01T20:15:00+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第10篇）_随机打乱列表元素-cover.jpg
 categories: ["技术"]
 tags: ["Python"]

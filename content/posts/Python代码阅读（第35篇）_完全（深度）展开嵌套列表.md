@@ -2,7 +2,7 @@
 title: Python代码阅读（第35篇）：完全（深度）展开嵌套列表
 date: 2020-09-08T18:01:47+08:00
 lastmod: 2020-09-08T18:01:47+08:00
-author: Zhang nan
+author: Felix
 cover: /post/Python代码阅读（第35篇）_完全（深度）展开嵌套列表-cover.jpg
 categories: ["技术"]
 tags: ["Python"]
