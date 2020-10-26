@@ -54,7 +54,7 @@ draft: false
 	title: my-first-post
 	date: 2020-06-13T19:45:22+08:00
 	lastmod: 2020-06-13T19:45:22+08:00
-	author: Felix
+	author: Author
 	cover: /post/xxx-cover.jpg
 	categories: ["技术"]
 	tags: ["Hugo", "GitHub"]
