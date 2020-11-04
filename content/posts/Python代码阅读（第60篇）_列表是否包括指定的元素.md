@@ -1,15 +1,15 @@
 ---
-title: Python代码阅读（第60篇）：列表的包含和相交关系判断
-date: 2020-10-27T18:35:35+08:00
-lastmod: 2020-10-27T18:35:35+08:00
+title: Python代码阅读（第60篇）：列表是否包括指定的元素
+date: 2020-10-27T12:29:35+08:00
+lastmod: 2020-10-27T12:29:35+08:00
 author: Felix
-cover: /post/Python代码阅读（第60篇）_列表的包含和相交关系判断-cover.jpg
+cover: /post/Python代码阅读（第60篇）_列表是否包括指定的元素-cover.jpg
 categories: ["技术"]
 tags: ["Python"]
 draft: false
 ---
 
-本篇阅读的代码分别实现了判断给出的列表是否被指定列表包含，以及给出的列表是否与指定列表有交集的功能。
+本篇阅读的代码分别实现了判断给出的元素是否都在指定的列表中出现过，以及判断任一给出的元素是否在指定的列表中出现过。
 
 本篇阅读的代码片段来自于[30-seconds-of-python](https://github.com/30-seconds/30-seconds-of-python)。
 
@@ -29,7 +29,7 @@ includes_all([1, 2, 3, 4], [1, 4]) # True
 includes_all([1, 2, 3, 4], [1, 5]) # False
 ```
 
-`includes_all`函数接收两个列表`lst`和`values`，如果`values`中的所有元素都包含在`lst`中，则返回`True`，否则返回`False`。
+`includes_all`函数接收两个列表`lst`和`values`，如果`values`中的所有元素都在`lst`中出现过，则返回`True`，否则返回`False`。并不对元素的出现次数做要求。
 
 函数用`for` 循环遍历`values`中的元素，用`not in`关键词判断该元素是否在`lst`中存在。如果`values`中的任意一个元素在`lst`中不存在，就返回`False`，只有`values`中的所有元素在`lst`中存在，才返回`True`。
 
@@ -49,7 +49,7 @@ includes_any([1, 2, 3, 4], [2, 9]) # True
 includes_any([1, 2, 3, 4], [8, 9]) # False
 ```
 
-`includes_any`函数类似，也是接收两个列表`lst`和`values`，如果`values`中的任意元素被包含在`lst`中，返回`True`，否则返回`False`。
+`includes_any`函数类似，也是接收两个列表`lst`和`values`，如果`values`中的任意元素在`lst`中出现过，返回`True`，否则返回`False`。并不对元素的出现次数做要求。
 
 在该函数的`for`循环中，使用`in`关键词判断元素是在`lst`中存在。
 
