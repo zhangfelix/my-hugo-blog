@@ -31,3 +31,18 @@ has_duplicates(y) # False
 `has_duplicates`函数接收一个列表，返回`True`，如果该列表中包含重复元素，返回`False`，如果该列表中不包含重复元素。
 
 函数使用`set(lst)`形成不包含重复项的列表元素的集合。计算并比较原列表的长度和集合的长度。如果长度一致，则说明列表中不包含重复元素；不一致，则说明列表中包含重复元素。
+
+## `all_unique`
+
+```python
+def all_unique(lst):
+  return len(lst) == len(set(lst))
+
+# EXAMPLES
+x = [1, 2, 3, 4, 5, 6]
+y = [1, 2, 2, 3, 4, 5]
+all_unique(x) # True
+all_unique(y) # False
+```
+
+`all_unique`和上面函数原理一样。将`!=`替换成了`==`，用于判断列表中的元素是否都唯一。
