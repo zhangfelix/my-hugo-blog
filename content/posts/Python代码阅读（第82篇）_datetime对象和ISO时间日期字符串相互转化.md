@@ -1,7 +1,7 @@
 ---
 title: Python代码阅读（第82篇）：datetime对象和ISO时间日期字符串相互转化
-date: 2020-11-26T11:09:04+08:00
-lastmod: 2020-11-26T11:09:04+08:00
+date: 2020-11-27T12:29:04+08:00
+lastmod: 2020-11-27T12:29:04+08:00
 author: Felix
 cover: /post/Python代码阅读（第82篇）_datetime对象和ISO时间日期字符串相互转化-cover.jpg
 categories: ["技术"]
