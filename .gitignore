@@ -10,7 +10,7 @@ hugo.darwin
 hugo.linux
 
 # OSX
-.DS_Store
+**/.DS_Store
 
 # emacs
 *.md#
