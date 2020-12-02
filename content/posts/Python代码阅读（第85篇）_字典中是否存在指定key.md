@@ -26,6 +26,6 @@ d = {'one': 1, 'three': 3, 'five': 5, 'two': 2, 'four': 4}
 key_in_dict(d, 'three') # True
 ```
 
-`key_in_dict`函数接收一个字典和一个`key`，返回提供的字典中是否包含该`key`。
+`key_in_dict`函数接收一个字典`d`和一个`key`，返回提供的字典中是否包含该`key`。
 
 函数使用`in`关键词判断字典`d`中是否包含`key`。对于字典类型而言，这种判断`key in d`只会在字典键中搜索判断。如果`d`中存在键`key`则返回`True`，否则返回`False`。
