@@ -3,7 +3,7 @@ title: Python代码阅读（第92篇）：二进制和十六进制转换
 date: 2020-12-15T12:30:08+08:00
 lastmod: 2020-12-15T12:30:08+08:00
 author: Felix
-cover: /post/Python代码阅读（第92篇）_二进制和十六进制转换.jpg
+cover: /post/Python代码阅读（第92篇）_二进制和十六进制转换-cover.jpg
 categories: ["技术"]
 tags: ["Python"]
 draft: false

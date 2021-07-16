@@ -10,13 +10,27 @@ disqusShortname = "zhangfelix-blog"
 
 [params]
   # background = "black"
+  background = "#fff"
   backgroundImage = "/global/background.jpg"
   linkColor = "seagreen"
+
+  # dark mode
+  backgroundDark = "black"
+  backgroundImageDark = "/global/backgroundDark.jpg"
+  darkLinkColor = "darkseagreen"
+  # darkNav = true
+  # dark404 = true
+
+  images = [""]
 
   author = "Felix"
   description = "我的声音"
   avatar = "/global/avatar.jpg"
   motto = "Monologue"
+
+  rss = true
+
+  utterancesRepo = "zhangfelix/zhangfelix.github.io"
 
   email = "zhn.i@hotmail.com"
   twitter = "zhangnfelix"
@@ -31,7 +45,29 @@ disqusShortname = "zhangfelix-blog"
 
   favicon = "/global/favicon.ico"
 
-  # dark mode
-  darkLinkColor = "darkseagreen"
-  darkNav = true
-  dark404 = true
+  highlightjs = true
+  # highlightjsCDN = "https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js"
+  highlightjsExtraLanguages = ["ocaml", "python"]
+  highlightjsTheme = "gruvbox-light"
+  highlightjsThemeDark = "gruvbox-dark"
+
+  # search
+  enableSearch = true
+
+  # options
+  showSummaryCoverInPost = true
+  # hasTwitterEmbed = true
+  # reversePostAndAside = true
+  # shareInAside = true
+  fixedNav = true
+  # collapsibleTags = true
+  # collapseBySummary = true
+
+  [params.advanced]
+    # customCSS = ["css/custom.css"]
+    # customJSBefore = []
+    # customJS = []
+
+  [params.experimental]
+    jsDate = true
+    jsDateFormat = "yyyy年MM月dd日"
