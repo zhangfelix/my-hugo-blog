@@ -1,0 +1,343 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=x-ua-compatible content="ie=edge">
+<title>Python zip函数分析和一种可迭代类型解压（Iterable Unpacking）的方式 | 独白</title>
+<link href=/global/favicon.ico rel="shortcut icon" type=image/x-icon>
+<meta name=author content="Felix">
+<meta name=description content="针对Python的zip函数进行解释分析，并在此延伸出可迭代类型的解压问题。
+">
+<meta name=generator content="Hugo 0.86.0">
+<link rel=canonical href=https://www.zhangfelix.com/posts/python_zip%E5%87%BD%E6%95%B0%E5%88%86%E6%9E%90%E5%92%8C%E4%B8%80%E7%A7%8D%E5%8F%AF%E8%BF%AD%E4%BB%A3%E7%B1%BB%E5%9E%8B%E8%A7%A3%E5%8E%8Biterable_unpacking%E7%9A%84%E6%96%B9%E5%BC%8F/>
+<meta property="og:title" content="Python zip函数分析和一种可迭代类型解压（Iterable Unpacking）的方式">
+<meta property="og:description" content="针对Python的zip函数进行解释分析，并在此延伸出可迭代类型的解压问题。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.zhangfelix.com/posts/python_zip%E5%87%BD%E6%95%B0%E5%88%86%E6%9E%90%E5%92%8C%E4%B8%80%E7%A7%8D%E5%8F%AF%E8%BF%AD%E4%BB%A3%E7%B1%BB%E5%9E%8B%E8%A7%A3%E5%8E%8Biterable_unpacking%E7%9A%84%E6%96%B9%E5%BC%8F/"><meta property="og:image" content="https://www.zhangfelix.com"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-01-07T18:36:58+08:00">
+<meta property="article:modified_time" content="2021-01-07T18:36:58+08:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://www.zhangfelix.com">
+<meta name=twitter:title content="Python zip函数分析和一种可迭代类型解压（Iterable Unpacking）的方式">
+<meta name=twitter:description content="针对Python的zip函数进行解释分析，并在此延伸出可迭代类型的解压问题。">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css>
+<link rel=stylesheet href=/css/icomoon.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/css/OverlayScrollbars.min.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css>
+<link rel=stylesheet href=/css/site.css>
+<style>.ui.header a:not(.item,.ui.button):hover{text-decoration:underline}a:not(.item,.ui.button){color:#2e8b57!important}.inverted a:not(.item,.ui.button){color:#8fbc8f!important}body.default{background-color:#fff;background-image:url(/global/background.jpg)}body.dark{background-color:#000;background-image:url(/global/backgroundDark.jpg)}</style>
+<link rel=stylesheet data-highlight href=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css>
+</head>
+<body class=default>
+<nav class="ui secondary menu dream-menu dream-nav">
+<a class="item dream-flip-toggle" title=翻转！>
+<i class="large link bullseye icon"></i>
+</a>
+<a class=item href=https://www.zhangfelix.com title=首页>
+<i class="large link home icon"></i>
+</a>
+<a class=item onclick=themeSwitch(event)>
+<i class="large link icon theme-switch"></i>
+</a>
+<a class=item title=搜索 onclick=toggleSearch(event)>
+<i class="large link search icon"></i>
+</a>
+</nav>
+<div class=flip-container>
+<div class=flipper>
+<section class=front>
+<div class=dream-max-width>
+<div class="ui relaxed centered grid dream-grid dream-grid-single">
+<aside class="sixteen wide mobile sixteen wide tablet three wide computer column dream-single-aside">
+<div class="ui segment toc">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#zip的解释><code>zip</code>的解释</a>
+<ul>
+<li><a href=#官方文档httpsdocspythonorgzh-cn3libraryfunctionshtmlzip><a href=https://docs.python.org/zh-cn/3/library/functions.html#zip>官方文档</a></a></li>
+<li><a href=#zipzipx-y的解释><code>zip(*zip(x, y))</code>的解释</a></li>
+<li><a href=#zipitersn的解释><code>zip(*[iter(s)]*n)</code>的解释</a></li>
+</ul>
+</li>
+<li><a href=#可迭代类型的解压>可迭代类型的解压</a></li>
+</ul>
+</nav>
+</div>
+</aside>
+<div class="sixteen wide mobile sixteen wide tablet ten wide computer column markdown-body dream-single" id=dream-save-post-as-img>
+<section class="ui top attached segment">
+<header>
+<h1 class="ui large header">Python zip函数分析和一种可迭代类型解压（Iterable Unpacking）的方式<span class="sub header">
+<span class=left>
+@
+Felix
+|
+<span data-format=luxon>2021-01-07T18:36:58+08:00</span>
+| 4 分钟阅读
+| 更新于
+<span data-format=luxon>2021-01-07T18:36:58+08:00</span>
+</span>
+<span class=dream-share>
+<a href=# class=save-as-image title=保存为图片 onclick=savePostAsImg()>
+<i class="save icon"></i>
+</a>
+<a href="https://twitter.com/intent/tweet?text=Python%20zip%e5%87%bd%e6%95%b0%e5%88%86%e6%9e%90%e5%92%8c%e4%b8%80%e7%a7%8d%e5%8f%af%e8%bf%ad%e4%bb%a3%e7%b1%bb%e5%9e%8b%e8%a7%a3%e5%8e%8b%ef%bc%88Iterable%20Unpacking%ef%bc%89%e7%9a%84%e6%96%b9%e5%bc%8f&url=https%3a%2f%2fwww.zhangfelix.com%2fposts%2fpython_zip%25E5%2587%25BD%25E6%2595%25B0%25E5%2588%2586%25E6%259E%2590%25E5%2592%258C%25E4%25B8%2580%25E7%25A7%258D%25E5%258F%25AF%25E8%25BF%25AD%25E4%25BB%25A3%25E7%25B1%25BB%25E5%259E%258B%25E8%25A7%25A3%25E5%258E%258Biterable_unpacking%25E7%259A%2584%25E6%2596%25B9%25E5%25BC%258F%2f" title=Twitter>
+<i class="twitter icon"></i>
+</a>
+<a href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fwww.zhangfelix.com%2fposts%2fpython_zip%25E5%2587%25BD%25E6%2595%25B0%25E5%2588%2586%25E6%259E%2590%25E5%2592%258C%25E4%25B8%2580%25E7%25A7%258D%25E5%258F%25AF%25E8%25BF%25AD%25E4%25BB%25A3%25E7%25B1%25BB%25E5%259E%258B%25E8%25A7%25A3%25E5%258E%258Biterable_unpacking%25E7%259A%2584%25E6%2596%25B9%25E5%25BC%258F%2f" title=Facebook>
+<i class="facebook icon"></i>
+</a>
+</span>
+</span>
+</h1>
+</header>
+<article class=main>
+<img class=cover src=/post/Python_zip%e5%87%bd%e6%95%b0%e5%88%86%e6%9e%90%e5%92%8c%e4%b8%80%e7%a7%8d%e5%8f%af%e8%bf%ad%e4%bb%a3%e7%b1%bb%e5%9e%8b%e8%a7%a3%e5%8e%8b%ef%bc%88Iterable_Unpacking%ef%bc%89%e7%9a%84%e6%96%b9%e5%bc%8f-cover.jpg>
+<p>针对Python的zip函数进行解释分析，并在此延伸出可迭代类型的解压问题。</p>
+<h2 id=zip的解释><code>zip</code>的解释</h2>
+<h3 id=官方文档httpsdocspythonorgzh-cn3libraryfunctionshtmlzip><a href=https://docs.python.org/zh-cn/3/library/functions.html#zip>官方文档</a></h3>
+<p><code>zip(*iterables)</code>
+创建一个聚合了来自每个可迭代对象中的元素的迭代器。返回一个元组的迭代器，其中的第<code>i</code>个元组包含来自每个参数序列或可迭代对象的第<code>i</code>个元素。 当所输入可迭代对象中最短的一个被耗尽时，迭代器将停止迭代。 当只有一个可迭代对象参数时，它将返回一个单元组的迭代器。 不带参数时，它将返回一个空迭代器。 相当于:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>zip</span>(<span style=color:#f92672>*</span>iterables):
+    <span style=color:#75715e># zip(&#39;ABCD&#39;, &#39;xy&#39;) --&gt; Ax By</span>
+    sentinel <span style=color:#f92672>=</span> object()
+    iterators <span style=color:#f92672>=</span> [iter(it) <span style=color:#66d9ef>for</span> it <span style=color:#f92672>in</span> iterables]
+    <span style=color:#66d9ef>while</span> iterators:
+        result <span style=color:#f92672>=</span> []
+        <span style=color:#66d9ef>for</span> it <span style=color:#f92672>in</span> iterators:
+            elem <span style=color:#f92672>=</span> next(it, sentinel)
+            <span style=color:#66d9ef>if</span> elem <span style=color:#f92672>is</span> sentinel:
+                <span style=color:#66d9ef>return</span>
+            result<span style=color:#f92672>.</span>append(elem)
+        <span style=color:#66d9ef>yield</span> tuple(result)
+</code></pre></div><p>函数会保证可迭代对象按从左至右的顺序被求值。 使得可以通过 <code>zip(*[iter(s)]*n)</code>这样的惯用形式将一系列数据聚类为长度为<code>n</code>的分组。 这将重复同样的迭代器<code>n</code>次，以便每个输出的元组具有第<code>n</code>次调用该迭代器的结果。 它的作用效果就是将输入拆分为长度为<code>n</code>数据块。</p>
+<p>当你不用关心较长可迭代对象末尾不匹配的值时，则<code>zip()</code>只须使用长度不相等的输入即可。 如果那些值很重要，则应改用<code>itertools.zip_longest()</code>。</p>
+<p><code>zip()</code>与<code>*</code>运算符相结合可以用来拆解一个列表:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>&gt;&gt;&gt;</span> x <span style=color:#f92672>=</span> [<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>]
+<span style=color:#f92672>&gt;&gt;&gt;</span> y <span style=color:#f92672>=</span> [<span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>6</span>]
+<span style=color:#f92672>&gt;&gt;&gt;</span> zipped <span style=color:#f92672>=</span> zip(x, y)
+<span style=color:#f92672>&gt;&gt;&gt;</span> list(zipped)
+[(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>4</span>), (<span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>5</span>), (<span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>6</span>)]
+<span style=color:#f92672>&gt;&gt;&gt;</span> x2, y2 <span style=color:#f92672>=</span> zip(<span style=color:#f92672>*</span>zip(x, y))
+<span style=color:#f92672>&gt;&gt;&gt;</span> x <span style=color:#f92672>==</span> list(x2) <span style=color:#f92672>and</span> y <span style=color:#f92672>==</span> list(y2)
+<span style=color:#66d9ef>True</span>
+</code></pre></div><h3 id=zipzipx-y的解释><code>zip(*zip(x, y))</code>的解释</h3>
+<p>根据官方文档<code>zip(x, y)</code>会生成一个迭代器，一个迭代器是一个可迭代对象。根据<code>zip(*iterables)</code>中的<a href=https://docs.python.org/zh-cn/3/tutorial/controlflow.html#arbitrary-argument-lists><code>*iterables</code>定义</a>和<a href=https://docs.python.org/zh-cn/3/tutorial/controlflow.html#unpacking-argument-lists>函数传参中<code>*</code>的定义</a>（一个是说函数接收任意数量参数，一个是对参数列表进行解包）。<code>zip(*zip(x, y))</code>会将内部<code>zip</code>生成的可迭代对象的所有元素独立的传入外层<code>zip</code>中。</p>
+<p><code>zip(x, y)</code>可以迭代3次，生成三个元组：<code>(1,4), (2, 5), (3, 6)</code>。将其传入外层<code>zip</code>中，即<code>zip( (1,4), (2, 5), (3, 6) )</code>。根据定义外层<code>zip</code>可以迭代2次，生成两个元组：<code>(1, 2, 3), (4, 5, 6)</code>。</p>
+<p><code>x2, y2 = zip(*zip(x, y))</code>这种形式，将分别将这两个元组赋值给<code>x2</code>和<code>y2</code>。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>&gt;&gt;&gt;</span> x <span style=color:#f92672>=</span> [<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>]
+<span style=color:#f92672>&gt;&gt;&gt;</span> y <span style=color:#f92672>=</span> [<span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>6</span>]
+<span style=color:#f92672>&gt;&gt;&gt;</span> x2, y2 <span style=color:#f92672>=</span> zip(<span style=color:#f92672>*</span>zip(x, y))
+<span style=color:#f92672>&gt;&gt;&gt;</span> type(x2)
+<span style=color:#f92672>&lt;</span><span style=color:#66d9ef>class</span> <span style=color:#960050;background-color:#1e0010>&#39;</span><span style=color:#a6e22e>tuple</span><span style=color:#e6db74>&#39;&gt;</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> x2
+(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>)
+<span style=color:#f92672>&gt;&gt;&gt;</span> y2
+(<span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>6</span>)
+</code></pre></div><p>这里就产生了一个疑问，为什么<code>a, b = iterables</code>可以解压可迭代元素呢？这个会在后续研究。我们先来看看<code>zip(*[iter(s)]*n)</code>。</p>
+<h3 id=zipitersn的解释><code>zip(*[iter(s)]*n)</code>的解释</h3>
+<p>参考资料：<a href=https://stackoverflow.com/questions/2233204/how-does-zipitersn-work-in-python>https://stackoverflow.com/questions/2233204/how-does-zipitersn-work-in-python</a></p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>&gt;&gt;&gt;</span> s <span style=color:#f92672>=</span> [<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>6</span>, <span style=color:#ae81ff>7</span>, <span style=color:#ae81ff>8</span>, <span style=color:#ae81ff>9</span>]
+<span style=color:#f92672>&gt;&gt;&gt;</span> n <span style=color:#f92672>=</span> <span style=color:#ae81ff>3</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> a, b, c <span style=color:#f92672>=</span> zip(<span style=color:#f92672>*</span>[iter(s)]<span style=color:#f92672>*</span>n)
+<span style=color:#f92672>&gt;&gt;&gt;</span> a
+(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>)
+<span style=color:#f92672>&gt;&gt;&gt;</span> b
+(<span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>6</span>)
+<span style=color:#f92672>&gt;&gt;&gt;</span> c
+(<span style=color:#ae81ff>7</span>, <span style=color:#ae81ff>8</span>, <span style=color:#ae81ff>9</span>)
+</code></pre></div><p><code>iter(s)</code>将<code>s</code>转换成了一个迭代器<code>x</code>，而<code>[x] * 3</code>则会将<code>x</code>重复三遍，生成<code>[x, x, x]</code>。所以<code>zip(*[iter(s)]*n)</code>可以改写为<code>zip(*[x, x, x])</code>，<a href=https://docs.python.org/zh-cn/3/tutorial/controlflow.html#unpacking-argument-lists>解包参数列表</a>，就得到<code>zip(x, x, x)</code>。根据<code>zip</code>的定义，每次<code>zip</code>迭代时，都会从输入的可迭代对象中，获取一个元素。因为<code>zip(x, x, x)</code>中三个入参都是同一个迭代器，所以这个<code>zip</code>返回的第一个元素，是<code>x</code>的前三个元素组成的元组<code>(1, 2, 3)</code>。以此类推，这个<code>zip</code>下两次迭代的结果是<code>(4, 5, 6)</code>和<code>(7, 8, 9)</code>。</p>
+<h2 id=可迭代类型的解压>可迭代类型的解压</h2>
+<p><code>a, b = iterables</code>上面提到了这种可迭代类型解压的方式。可以试着多尝试几次：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>&gt;&gt;&gt;</span> a, b, c, d, e <span style=color:#f92672>=</span> range(<span style=color:#ae81ff>5</span>)
+<span style=color:#f92672>&gt;&gt;&gt;</span> a
+<span style=color:#ae81ff>0</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> b
+<span style=color:#ae81ff>1</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> e
+<span style=color:#ae81ff>4</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> x, <span style=color:#f92672>*</span>y, z <span style=color:#f92672>=</span> range(<span style=color:#ae81ff>5</span>)
+<span style=color:#f92672>&gt;&gt;&gt;</span> x
+<span style=color:#ae81ff>0</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> y
+[<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>]
+<span style=color:#f92672>&gt;&gt;&gt;</span> z
+<span style=color:#ae81ff>4</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> a, <span style=color:#f92672>*</span>b, c, d <span style=color:#f92672>=</span> range(<span style=color:#ae81ff>3</span>)
+<span style=color:#f92672>&gt;&gt;&gt;</span> a
+<span style=color:#ae81ff>0</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> b
+[]
+<span style=color:#f92672>&gt;&gt;&gt;</span> c
+<span style=color:#ae81ff>1</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> d
+<span style=color:#ae81ff>2</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> x <span style=color:#f92672>=</span> [<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>]
+<span style=color:#f92672>&gt;&gt;&gt;</span> y <span style=color:#f92672>=</span> [<span style=color:#ae81ff>4</span>, <span style=color:#ae81ff>5</span>, <span style=color:#ae81ff>6</span>]
+<span style=color:#f92672>&gt;&gt;&gt;</span> zipped <span style=color:#f92672>=</span> zip(x, y)
+<span style=color:#f92672>&gt;&gt;&gt;</span> x1, <span style=color:#f92672>*</span>y1 <span style=color:#f92672>=</span> zipped
+<span style=color:#f92672>&gt;&gt;&gt;</span> x1
+(<span style=color:#ae81ff>1</span>, <span style=color:#ae81ff>4</span>)
+<span style=color:#f92672>&gt;&gt;&gt;</span> y1
+[(<span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>5</span>), (<span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>6</span>)]
+<span style=color:#f92672>&gt;&gt;&gt;</span> next(zipped)
+Traceback (most recent call last):
+  File <span style=color:#e6db74>&#34;&lt;stdin&gt;&#34;</span>, line <span style=color:#ae81ff>1</span>, <span style=color:#f92672>in</span> <span style=color:#f92672>&lt;</span>module<span style=color:#f92672>&gt;</span>
+<span style=color:#a6e22e>StopIteration</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> temp <span style=color:#f92672>=</span> iter(range(<span style=color:#ae81ff>5</span>))
+<span style=color:#f92672>&gt;&gt;&gt;</span> next(temp)
+<span style=color:#ae81ff>0</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> a1, <span style=color:#f92672>*</span>b1 <span style=color:#f92672>=</span> temp
+<span style=color:#f92672>&gt;&gt;&gt;</span> a1
+<span style=color:#ae81ff>1</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> b1
+[<span style=color:#ae81ff>2</span>, <span style=color:#ae81ff>3</span>, <span style=color:#ae81ff>4</span>]
+</code></pre></div><p>可以看到这种语法不仅可以将可迭代对象依次赋值给不同的变量，也可使用星号表达式的形式，获取除了明确指定的以外，剩下的元素（甚至可以为空列表）。</p>
+<p>这种形式的语法与迭代器的迭代也有影响。用这种方式取值之后，使用<code>next()</code>也无法进行迭代。使用<code>next()</code>迭代之后，已取出的元素也不能再被赋值。注意，这里说的是迭代器，而不是可迭代对象。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>&gt;&gt;&gt;</span> t <span style=color:#f92672>=</span> range(<span style=color:#ae81ff>3</span>)
+<span style=color:#f92672>&gt;&gt;&gt;</span> a, b, c <span style=color:#f92672>=</span> t
+<span style=color:#f92672>&gt;&gt;&gt;</span> a
+<span style=color:#ae81ff>0</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> b
+<span style=color:#ae81ff>1</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> c
+<span style=color:#ae81ff>2</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> d, e, f <span style=color:#f92672>=</span> t
+<span style=color:#f92672>&gt;&gt;&gt;</span> d
+<span style=color:#ae81ff>0</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> e
+<span style=color:#ae81ff>1</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> f
+<span style=color:#ae81ff>2</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> it <span style=color:#f92672>=</span> iter(t)
+<span style=color:#f92672>&gt;&gt;&gt;</span> a1, b1, c1 <span style=color:#f92672>=</span> it
+<span style=color:#f92672>&gt;&gt;&gt;</span> a1
+<span style=color:#ae81ff>0</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> b1
+<span style=color:#ae81ff>1</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> c1
+<span style=color:#ae81ff>2</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> d1, e1, f1 <span style=color:#f92672>=</span> it
+Traceback (most recent call last):
+  File <span style=color:#e6db74>&#34;&lt;stdin&gt;&#34;</span>, line <span style=color:#ae81ff>1</span>, <span style=color:#f92672>in</span> <span style=color:#f92672>&lt;</span>module<span style=color:#f92672>&gt;</span>
+<span style=color:#a6e22e>ValueError</span>: <span style=color:#f92672>not</span> enough values to unpack (expected <span style=color:#ae81ff>3</span>, got <span style=color:#ae81ff>0</span>)
+<span style=color:#f92672>&gt;&gt;&gt;</span> next(it)
+Traceback (most recent call last):
+  File <span style=color:#e6db74>&#34;&lt;stdin&gt;&#34;</span>, line <span style=color:#ae81ff>1</span>, <span style=color:#f92672>in</span> <span style=color:#f92672>&lt;</span>module<span style=color:#f92672>&gt;</span>
+<span style=color:#a6e22e>StopIteration</span>
+</code></pre></div><p>这项语法说明记录在<a href=https://www.python.org/dev/peps/pep-3132/>PEP 3132 &ndash; Extended Iterable Unpacking</a>。</p>
+</article>
+</section>
+<article class="ui segment post-disqus-area" data-html2canvas-ignore>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="https://www.zhangfelix.com/posts/python_zip%E5%87%BD%E6%95%B0%E5%88%86%E6%9E%90%E5%92%8C%E4%B8%80%E7%A7%8D%E5%8F%AF%E8%BF%AD%E4%BB%A3%E7%B1%BB%E5%9E%8B%E8%A7%A3%E5%8E%8Biterable_unpacking%E7%9A%84%E6%96%B9%E5%BC%8F/",this.page.identifier="/posts/python_zip%E5%87%BD%E6%95%B0%E5%88%86%E6%9E%90%E5%92%8C%E4%B8%80%E7%A7%8D%E5%8F%AF%E8%BF%AD%E4%BB%A3%E7%B1%BB%E5%9E%8B%E8%A7%A3%E5%8E%8Biterable_unpacking%E7%9A%84%E6%96%B9%E5%BC%8F/"};(function(){var a=document,b=a.createElement('script');b.src='https://zhangfelix-blog.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+</article>
+<article class="ui segment utterances-comments" data-html2canvas-ignore>
+<script src=https://utteranc.es/client.js repo=zhangfelix/zhangfelix.github.io issue-term=og:title theme=github-light crossorigin=anonymous async></script>
+</article>
+</div>
+</div>
+<footer class="ui basic center aligned segment" style=background-color:transparent>
+<p>© 2020 - 2021 独白</p>
+<p>Powered by <a href=https://gohugo.io/ target=_blank>Hugo</a> with theme <a href=https://github.com/g1eny0ung/hugo-theme-dream target=_blank>Dream</a>.</p>
+</footer>
+</div>
+</section>
+<section class=back>
+<div class=dream-max-width>
+<header class="ui basic very padded segment dream-header">
+<div class="ui small circular image">
+<img src=/global/avatar.jpg alt=avatar>
+</div>
+<div class=content>
+<h1 class="ui medium header">zhangfelix's blog test<span class="sub header">Monologue</span>
+</h1>
+<article class="ui horizontal list">
+<a class=item href=/posts>
+<i class="archive icon" title=归档></i>
+</a>
+<a class=item href=/categories>
+<i class="th list icon" title=所有分类></i>
+</a>
+<a class=item href=/tags>
+<i class="tags icon" title=所有标签></i>
+</a>
+</article>
+<div class=dream-tags>
+<a class="ui label" href=/tags/github/ title=GitHub>
+GitHub
+</a>
+<a class="ui label" href=/tags/hugo/ title=Hugo>
+Hugo
+</a>
+<a class="ui label" href=/tags/python/ title=Python>
+Python
+</a>
+</div>
+</div>
+</header>
+<div class="ui relaxed grid dream-grid dream-back">
+<div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+<article class="ui segment markdown-body">
+<div class="ui medium header">Desc</div>
+<p>Hi, my name is Felix.</p>
+<p>This is my blog.</p>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+<article class="ui segment">
+<div class="ui medium header">社交链接</div>
+<nav class="ui secondary menu dream-menu dream-socials">
+<a class=item href=/index.xml>
+<i class="large rss square icon" title=RSS></i>
+</a>
+<a class=item href=mailto:zhn.i@hotmail.com>
+<i class="large mail icon" title=Email></i>
+</a>
+<a class=item href=https://twitter.com/zhangnfelix target=_blank>
+<i class="large twitter icon" title=Twitter></i>
+</a>
+<a class=item href=https://github.com/zhangfelix target=_blank>
+<i class="large github icon" title=GitHub></i>
+</a>
+</nav>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.6.0></script>
+<script src=https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js></script>
+<div class="ui segment" id=dream-search>
+<div class="ui search">
+<div class="ui transparent input">
+<input class=prompt type=text placeholder=搜索>
+</div>
+<div class=results></div>
+</div>
+</div>
+<script>$(document).ready(function(){$.getJSON('https://www.zhangfelix.com/index.json',function(a){$('.ui.search').search({source:a,searchFields:['title'],showNoResults:!1})})})</script>
+<script src=/js/search.js></script>
+<script>window.background="#fff",window.defaultDark=null,window.backgroundDark="black",window.backgroundImageDark="/global/backgroundDark.jpg",window.darkNav=null,window.maxTags=null,window.hasTwitterEmbed=null,window.fixedNav=!0,window.hasTwitterEmbed&&(window.twttr=function(c,d,e){var b,f=c.getElementsByTagName(d)[0],a=window.twttr||{};return c.getElementById(e)?a:(b=c.createElement(d),b.id=e,b.src='https://platform.twitter.com/widgets.js',f.parentNode.insertBefore(b,f),a._e=[],a.ready=function(b){a._e.push(b)},a)}(document,'script','twitter-wjs'))</script>
+<script src=https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/js/jquery.overlayScrollbars.min.js></script>
+<script src=/js/header.js></script>
+<script src=/js/main.js></script>
+<script src=/js/theme.js></script>
+<script src=https://cdn.jsdelivr.net/npm/luxon@1.26.0></script>
+<script>format();function format(){$('span[data-format="luxon"]').each(function(){var a=$(this).text();$(this).text(luxon.DateTime.fromISO(a,{locale:"zh"}).toFormat("yyyy年MM月dd日"))})}</script>
+<script src=/js/scrollToTop.js></script>
+<script src=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js></script>
+<script src=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js></script>
+<script src=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/python.min.js></script>
+<script>hljs.highlightAll(),setHighlightTheme();function setHighlightTheme(){var a=localStore.getItem('hugo-theme-dream-is-dark'),b,c,d;a=a?a:window.defaultDark?'y':a,b="gruvbox-light",c="gruvbox-dark",d=a==='y'?c:b,$('link[data-highlight]').attr('href','https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/'+d+'.min.css'),$('pre').css('background',a==='y'?'#333':'')}</script>
+<script src=https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1></script>
+<script src=/js/post.js defer></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-169268545-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</body>
+</html>

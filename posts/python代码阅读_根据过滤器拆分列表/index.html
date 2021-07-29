@@ -1,0 +1,233 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=x-ua-compatible content="ie=edge">
+<title>Python代码阅读：根据过滤器拆分列表 | 独白</title>
+<link href=/global/favicon.ico rel="shortcut icon" type=image/x-icon>
+<meta name=author content="Felix">
+<meta name=description content="本文中的代码片段来自于30-seconds-of-python。
+">
+<meta name=generator content="Hugo 0.86.0">
+<link rel=canonical href=https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB_%E6%A0%B9%E6%8D%AE%E8%BF%87%E6%BB%A4%E5%99%A8%E6%8B%86%E5%88%86%E5%88%97%E8%A1%A8/>
+<meta property="og:title" content="Python代码阅读：根据过滤器拆分列表">
+<meta property="og:description" content="本文中的代码片段来自于30-seconds-of-python。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB_%E6%A0%B9%E6%8D%AE%E8%BF%87%E6%BB%A4%E5%99%A8%E6%8B%86%E5%88%86%E5%88%97%E8%A1%A8/"><meta property="og:image" content="https://www.zhangfelix.com"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2020-06-23T21:45:19+08:00">
+<meta property="article:modified_time" content="2020-06-23T21:45:19+08:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://www.zhangfelix.com">
+<meta name=twitter:title content="Python代码阅读：根据过滤器拆分列表">
+<meta name=twitter:description content="本文中的代码片段来自于30-seconds-of-python。">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css>
+<link rel=stylesheet href=/css/icomoon.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/css/OverlayScrollbars.min.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css>
+<link rel=stylesheet href=/css/site.css>
+<style>.ui.header a:not(.item,.ui.button):hover{text-decoration:underline}a:not(.item,.ui.button){color:#2e8b57!important}.inverted a:not(.item,.ui.button){color:#8fbc8f!important}body.default{background-color:#fff;background-image:url(/global/background.jpg)}body.dark{background-color:#000;background-image:url(/global/backgroundDark.jpg)}</style>
+<link rel=stylesheet data-highlight href=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css>
+</head>
+<body class=default>
+<nav class="ui secondary menu dream-menu dream-nav">
+<a class="item dream-flip-toggle" title=翻转！>
+<i class="large link bullseye icon"></i>
+</a>
+<a class=item href=https://www.zhangfelix.com title=首页>
+<i class="large link home icon"></i>
+</a>
+<a class=item onclick=themeSwitch(event)>
+<i class="large link icon theme-switch"></i>
+</a>
+<a class=item title=搜索 onclick=toggleSearch(event)>
+<i class="large link search icon"></i>
+</a>
+</nav>
+<div class=flip-container>
+<div class=flipper>
+<section class=front>
+<div class=dream-max-width>
+<div class="ui relaxed centered grid dream-grid dream-grid-single">
+<aside class="sixteen wide mobile sixteen wide tablet three wide computer column dream-single-aside">
+<div class="ui segment toc">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#bifurcate><code>bifurcate</code></a></li>
+<li><a href=#enumerate><code>enumerate</code></a></li>
+<li><a href=#列表推导式>列表推导式</a></li>
+</ul>
+</nav>
+</div>
+</aside>
+<div class="sixteen wide mobile sixteen wide tablet ten wide computer column markdown-body dream-single" id=dream-save-post-as-img>
+<section class="ui top attached segment">
+<header>
+<h1 class="ui large header">Python代码阅读：根据过滤器拆分列表<span class="sub header">
+<span class=left>
+@
+Felix
+|
+<span data-format=luxon>2020-06-23T21:45:19+08:00</span>
+| 1 分钟阅读
+| 更新于
+<span data-format=luxon>2020-06-23T21:45:19+08:00</span>
+</span>
+<span class=dream-share>
+<a href=# class=save-as-image title=保存为图片 onclick=savePostAsImg()>
+<i class="save icon"></i>
+</a>
+<a href="https://twitter.com/intent/tweet?text=Python%e4%bb%a3%e7%a0%81%e9%98%85%e8%af%bb%ef%bc%9a%e6%a0%b9%e6%8d%ae%e8%bf%87%e6%bb%a4%e5%99%a8%e6%8b%86%e5%88%86%e5%88%97%e8%a1%a8&url=https%3a%2f%2fwww.zhangfelix.com%2fposts%2fpython%25E4%25BB%25A3%25E7%25A0%2581%25E9%2598%2585%25E8%25AF%25BB_%25E6%25A0%25B9%25E6%258D%25AE%25E8%25BF%2587%25E6%25BB%25A4%25E5%2599%25A8%25E6%258B%2586%25E5%2588%2586%25E5%2588%2597%25E8%25A1%25A8%2f" title=Twitter>
+<i class="twitter icon"></i>
+</a>
+<a href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fwww.zhangfelix.com%2fposts%2fpython%25E4%25BB%25A3%25E7%25A0%2581%25E9%2598%2585%25E8%25AF%25BB_%25E6%25A0%25B9%25E6%258D%25AE%25E8%25BF%2587%25E6%25BB%25A4%25E5%2599%25A8%25E6%258B%2586%25E5%2588%2586%25E5%2588%2597%25E8%25A1%25A8%2f" title=Facebook>
+<i class="facebook icon"></i>
+</a>
+</span>
+</span>
+</h1>
+</header>
+<article class=main>
+<img class=cover src=/post/Python%e4%bb%a3%e7%a0%81%e9%98%85%e8%af%bb_%e6%a0%b9%e6%8d%ae%e8%bf%87%e6%bb%a4%e5%99%a8%e6%8b%86%e5%88%86%e5%88%97%e8%a1%a8-cover.jpg>
+<p>本文中的代码片段来自于<a href=https://github.com/30-seconds/30-seconds-of-python>30-seconds-of-python</a>。</p>
+<h2 id=bifurcate><code>bifurcate</code></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>bifurcate</span>(lst, filter):
+  <span style=color:#66d9ef>return</span> [
+    [x <span style=color:#66d9ef>for</span> i, x <span style=color:#f92672>in</span> enumerate(lst) <span style=color:#66d9ef>if</span> filter[i] <span style=color:#f92672>==</span> <span style=color:#66d9ef>True</span>],
+    [x <span style=color:#66d9ef>for</span> i, x <span style=color:#f92672>in</span> enumerate(lst) <span style=color:#66d9ef>if</span> filter[i] <span style=color:#f92672>==</span> <span style=color:#66d9ef>False</span>]
+  ]
+
+<span style=color:#75715e># EXAMPLES</span>
+bifurcate([<span style=color:#e6db74>&#39;beep&#39;</span>, <span style=color:#e6db74>&#39;boop&#39;</span>, <span style=color:#e6db74>&#39;foo&#39;</span>, <span style=color:#e6db74>&#39;bar&#39;</span>], [<span style=color:#66d9ef>True</span>, <span style=color:#66d9ef>True</span>, <span style=color:#66d9ef>False</span>, <span style=color:#66d9ef>True</span>]) <span style=color:#75715e># [ [&#39;beep&#39;, &#39;boop&#39;, &#39;bar&#39;], [&#39;foo&#39;] ]</span>
+</code></pre></div><p><code>bifurcate</code>函数通过一个过滤器<code>filter</code>定义的内容，将输入列表<code>lst</code>分成两组。将<code>filter</code>中为<code>True</code>的对应的<code>lst</code>的项放入结果的第一个列表中，将<code>filter</code>中为<code>False</code>的对应的<code>lst</code>的项放入结果的第二个列表中。</p>
+<h2 id=enumerate><code>enumerate</code></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>enumerate(iterable, start<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>)
+</code></pre></div><p><code>enumerate</code>函数接收一个可迭代对象，并返回一个迭代对象。该迭代对象每次迭代返回一个元组，该元组包括一个序号和接收的可迭代对象的迭代值。<code>start</code>参数用于设定序号的初始值，默认为<code>0</code>。示例使用为：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>&gt;&gt;&gt;</span> seasons <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#39;Spring&#39;</span>, <span style=color:#e6db74>&#39;Summer&#39;</span>, <span style=color:#e6db74>&#39;Fall&#39;</span>, <span style=color:#e6db74>&#39;Winter&#39;</span>]
+<span style=color:#f92672>&gt;&gt;&gt;</span> list(enumerate(seasons))
+[(<span style=color:#ae81ff>0</span>, <span style=color:#e6db74>&#39;Spring&#39;</span>), (<span style=color:#ae81ff>1</span>, <span style=color:#e6db74>&#39;Summer&#39;</span>), (<span style=color:#ae81ff>2</span>, <span style=color:#e6db74>&#39;Fall&#39;</span>), (<span style=color:#ae81ff>3</span>, <span style=color:#e6db74>&#39;Winter&#39;</span>)]
+<span style=color:#f92672>&gt;&gt;&gt;</span> list(enumerate(seasons, start<span style=color:#f92672>=</span><span style=color:#ae81ff>1</span>))
+[(<span style=color:#ae81ff>1</span>, <span style=color:#e6db74>&#39;Spring&#39;</span>), (<span style=color:#ae81ff>2</span>, <span style=color:#e6db74>&#39;Summer&#39;</span>), (<span style=color:#ae81ff>3</span>, <span style=color:#e6db74>&#39;Fall&#39;</span>), (<span style=color:#ae81ff>4</span>, <span style=color:#e6db74>&#39;Winter&#39;</span>)]
+</code></pre></div><p><code>enumerate</code>函数的实现逻辑相当于如下代码：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>enumerate</span>(sequence, start<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>):
+    n <span style=color:#f92672>=</span> start
+    <span style=color:#66d9ef>for</span> elem <span style=color:#f92672>in</span> sequence:
+        <span style=color:#66d9ef>yield</span> n, elem
+        n <span style=color:#f92672>+=</span> <span style=color:#ae81ff>1</span>
+</code></pre></div><h2 id=列表推导式>列表推导式</h2>
+<p>该函数使用列表推导式判断<code>lst</code>里面值对应位置的<code>filter</code>的值，并生成对应的分组列表。</p>
+<p>列表推导式的简单介绍可以查看<a href=https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB_%E8%BF%87%E6%BB%A4%E6%8E%89%E5%88%97%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%94%AF%E4%B8%80%E5%80%BC/>Python代码阅读：过滤掉列表中的唯一值</a>中的“列表推导式”章节。</p>
+</article>
+</section>
+<article class="ui segment post-disqus-area" data-html2canvas-ignore>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB_%E6%A0%B9%E6%8D%AE%E8%BF%87%E6%BB%A4%E5%99%A8%E6%8B%86%E5%88%86%E5%88%97%E8%A1%A8/",this.page.identifier="/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB_%E6%A0%B9%E6%8D%AE%E8%BF%87%E6%BB%A4%E5%99%A8%E6%8B%86%E5%88%86%E5%88%97%E8%A1%A8/"};(function(){var a=document,b=a.createElement('script');b.src='https://zhangfelix-blog.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+</article>
+<article class="ui segment utterances-comments" data-html2canvas-ignore>
+<script src=https://utteranc.es/client.js repo=zhangfelix/zhangfelix.github.io issue-term=og:title theme=github-light crossorigin=anonymous async></script>
+</article>
+</div>
+</div>
+<footer class="ui basic center aligned segment" style=background-color:transparent>
+<p>© 2020 - 2021 独白</p>
+<p>Powered by <a href=https://gohugo.io/ target=_blank>Hugo</a> with theme <a href=https://github.com/g1eny0ung/hugo-theme-dream target=_blank>Dream</a>.</p>
+</footer>
+</div>
+</section>
+<section class=back>
+<div class=dream-max-width>
+<header class="ui basic very padded segment dream-header">
+<div class="ui small circular image">
+<img src=/global/avatar.jpg alt=avatar>
+</div>
+<div class=content>
+<h1 class="ui medium header">zhangfelix's blog test<span class="sub header">Monologue</span>
+</h1>
+<article class="ui horizontal list">
+<a class=item href=/posts>
+<i class="archive icon" title=归档></i>
+</a>
+<a class=item href=/categories>
+<i class="th list icon" title=所有分类></i>
+</a>
+<a class=item href=/tags>
+<i class="tags icon" title=所有标签></i>
+</a>
+</article>
+<div class=dream-tags>
+<a class="ui label" href=/tags/github/ title=GitHub>
+GitHub
+</a>
+<a class="ui label" href=/tags/hugo/ title=Hugo>
+Hugo
+</a>
+<a class="ui label" href=/tags/python/ title=Python>
+Python
+</a>
+</div>
+</div>
+</header>
+<div class="ui relaxed grid dream-grid dream-back">
+<div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+<article class="ui segment markdown-body">
+<div class="ui medium header">Desc</div>
+<p>Hi, my name is Felix.</p>
+<p>This is my blog.</p>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+<article class="ui segment">
+<div class="ui medium header">社交链接</div>
+<nav class="ui secondary menu dream-menu dream-socials">
+<a class=item href=/index.xml>
+<i class="large rss square icon" title=RSS></i>
+</a>
+<a class=item href=mailto:zhn.i@hotmail.com>
+<i class="large mail icon" title=Email></i>
+</a>
+<a class=item href=https://twitter.com/zhangnfelix target=_blank>
+<i class="large twitter icon" title=Twitter></i>
+</a>
+<a class=item href=https://github.com/zhangfelix target=_blank>
+<i class="large github icon" title=GitHub></i>
+</a>
+</nav>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.6.0></script>
+<script src=https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js></script>
+<div class="ui segment" id=dream-search>
+<div class="ui search">
+<div class="ui transparent input">
+<input class=prompt type=text placeholder=搜索>
+</div>
+<div class=results></div>
+</div>
+</div>
+<script>$(document).ready(function(){$.getJSON('https://www.zhangfelix.com/index.json',function(a){$('.ui.search').search({source:a,searchFields:['title'],showNoResults:!1})})})</script>
+<script src=/js/search.js></script>
+<script>window.background="#fff",window.defaultDark=null,window.backgroundDark="black",window.backgroundImageDark="/global/backgroundDark.jpg",window.darkNav=null,window.maxTags=null,window.hasTwitterEmbed=null,window.fixedNav=!0,window.hasTwitterEmbed&&(window.twttr=function(c,d,e){var b,f=c.getElementsByTagName(d)[0],a=window.twttr||{};return c.getElementById(e)?a:(b=c.createElement(d),b.id=e,b.src='https://platform.twitter.com/widgets.js',f.parentNode.insertBefore(b,f),a._e=[],a.ready=function(b){a._e.push(b)},a)}(document,'script','twitter-wjs'))</script>
+<script src=https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/js/jquery.overlayScrollbars.min.js></script>
+<script src=/js/header.js></script>
+<script src=/js/main.js></script>
+<script src=/js/theme.js></script>
+<script src=https://cdn.jsdelivr.net/npm/luxon@1.26.0></script>
+<script>format();function format(){$('span[data-format="luxon"]').each(function(){var a=$(this).text();$(this).text(luxon.DateTime.fromISO(a,{locale:"zh"}).toFormat("yyyy年MM月dd日"))})}</script>
+<script src=/js/scrollToTop.js></script>
+<script src=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js></script>
+<script src=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js></script>
+<script src=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/python.min.js></script>
+<script>hljs.highlightAll(),setHighlightTheme();function setHighlightTheme(){var a=localStore.getItem('hugo-theme-dream-is-dark'),b,c,d;a=a?a:window.defaultDark?'y':a,b="gruvbox-light",c="gruvbox-dark",d=a==='y'?c:b,$('link[data-highlight]').attr('href','https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/'+d+'.min.css'),$('pre').css('background',a==='y'?'#333':'')}</script>
+<script src=https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1></script>
+<script src=/js/post.js defer></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-169268545-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</body>
+</html>

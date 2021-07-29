@@ -1,0 +1,457 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=x-ua-compatible content="ie=edge">
+<title>Python | 独白</title>
+<link href=/global/favicon.ico rel="shortcut icon" type=image/x-icon>
+<meta name=author content="Felix">
+<meta name=description content="我的声音">
+<meta name=generator content="Hugo 0.86.0">
+<link rel=canonical href=https://www.zhangfelix.com/tags/python/>
+<meta property="og:title" content="Python">
+<meta property="og:description" content="我的声音">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.zhangfelix.com/tags/python/"><meta property="og:image" content="https://www.zhangfelix.com">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://www.zhangfelix.com">
+<meta name=twitter:title content="Python">
+<meta name=twitter:description content="我的声音">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css>
+<link rel=stylesheet href=/css/icomoon.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/css/OverlayScrollbars.min.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css>
+<link rel=stylesheet href=/css/site.css>
+<style>.ui.header a:not(.item,.ui.button):hover{text-decoration:underline}a:not(.item,.ui.button){color:#2e8b57!important}.inverted a:not(.item,.ui.button){color:#8fbc8f!important}body.default{background-color:#fff;background-image:url(/global/background.jpg)}body.dark{background-color:#000;background-image:url(/global/backgroundDark.jpg)}</style>
+</head>
+<body class=default>
+<nav class="ui secondary menu dream-menu dream-nav">
+<a class="item dream-flip-toggle" title=翻转！>
+<i class="large link bullseye icon"></i>
+</a>
+<a class=item href=https://www.zhangfelix.com title=首页>
+<i class="large link home icon"></i>
+</a>
+<a class=item onclick=themeSwitch(event)>
+<i class="large link icon theme-switch"></i>
+</a>
+<a class=item title=搜索 onclick=toggleSearch(event)>
+<i class="large link search icon"></i>
+</a>
+</nav>
+<div class=flip-container>
+<div class=flipper>
+<section class=front>
+<div class=dream-max-width>
+<header class="ui basic very padded segment dream-header">
+<div class="ui small circular image">
+<img src=/global/avatar.jpg alt=avatar>
+</div>
+<div class=content>
+<h1 class="ui medium header">zhangfelix's blog test<span class="sub header">Monologue</span>
+</h1>
+<article class="ui horizontal list">
+<a class=item href=/posts>
+<i class="archive icon" title=归档></i>
+</a>
+<a class=item href=/categories>
+<i class="th list icon" title=所有分类></i>
+</a>
+<a class=item href=/tags>
+<i class="tags icon" title=所有标签></i>
+</a>
+</article>
+<div class=dream-tags>
+<a class="ui label" href=/tags/github/ title=GitHub>
+GitHub
+</a>
+<a class="ui label" href=/tags/hugo/ title=Hugo>
+Hugo
+</a>
+<a class="ui label" href=/tags/python/ title=Python>
+Python
+</a>
+</div>
+</div>
+</header>
+<div class="ui relaxed grid dream-grid">
+<div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<article class="ui attached segment card dream-card">
+<a class=image href=https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC59%E7%AF%87_%E6%A0%B9%E6%8D%AEvalue%E6%9F%A5%E8%AF%A2%E5%AD%97%E5%85%B8key%E5%80%BC/>
+<img src=/post/Python%e4%bb%a3%e7%a0%81%e9%98%85%e8%af%bb%ef%bc%88%e7%ac%ac59%e7%af%87%ef%bc%89_%e6%a0%b9%e6%8d%aevalue%e6%9f%a5%e8%af%a2%e5%ad%97%e5%85%b8key%e5%80%bc-cover.jpg alt=Python代码阅读（第59篇）：根据value查询字典key值>
+</a>
+<div class=content>
+<h2 class="ui medium header">
+<a href=/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC59%E7%AF%87_%E6%A0%B9%E6%8D%AEvalue%E6%9F%A5%E8%AF%A2%E5%AD%97%E5%85%B8key%E5%80%BC/>Python代码阅读（第59篇）：根据value查询字典key值</a>
+</h2>
+<div class=meta>
+<p class=date>
+<span data-format=luxon>2020-10-26T18:30:22+08:00</span>
+</p>
+</div>
+<div class=description>
+<p>本篇阅读的代码实现了根据<code>value</code>查询字典<code>key</code>的功能。</p>
+<p>本篇阅读的代码片段来自于<a href=https://github.com/30-seconds/30-seconds-of-python>30-seconds-of-python</a>。</p>
+</div>
+</div>
+<div class="extra content">
+<div class=author>@&nbsp;Felix</div>
+<div class=reading-time>
+<i class="clock icon"></i>1 分钟阅读</div>
+</div>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<article class="ui attached segment card dream-card">
+<a class=image href=https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC58%E7%AF%87_%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8/>
+<img src=/post/Python%e4%bb%a3%e7%a0%81%e9%98%85%e8%af%bb%ef%bc%88%e7%ac%ac58%e7%af%87%ef%bc%89_%e5%8e%8b%e7%bc%a9%e5%88%97%e8%a1%a8-cover.jpg alt=Python代码阅读（第58篇）：压缩列表>
+</a>
+<div class=content>
+<h2 class="ui medium header">
+<a href=/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC58%E7%AF%87_%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8/>Python代码阅读（第58篇）：压缩列表</a>
+</h2>
+<div class=meta>
+<p class=date>
+<span data-format=luxon>2020-10-23T18:31:46+08:00</span>
+</p>
+</div>
+<div class=description>
+<p>本篇阅读的代码实现了去除列表中的“假值”的功能。</p>
+<p>本篇阅读的代码片段来自于<a href=https://github.com/30-seconds/30-seconds-of-python>30-seconds-of-python</a>。</p>
+</div>
+</div>
+<div class="extra content">
+<div class=author>@&nbsp;Felix</div>
+<div class=reading-time>
+<i class="clock icon"></i>1 分钟阅读</div>
+</div>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<article class="ui attached segment card dream-card">
+<a class=image href=https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC57%E7%AF%87_%E5%80%92%E5%BA%8F%E5%AD%97%E7%AC%A6%E4%B8%B2/>
+<img src=/post/Python%e4%bb%a3%e7%a0%81%e9%98%85%e8%af%bb%ef%bc%88%e7%ac%ac57%e7%af%87%ef%bc%89_%e5%80%92%e5%ba%8f%e5%ad%97%e7%ac%a6%e4%b8%b2-cover.jpg alt=Python代码阅读（第57篇）：倒序字符串>
+</a>
+<div class=content>
+<h2 class="ui medium header">
+<a href=/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC57%E7%AF%87_%E5%80%92%E5%BA%8F%E5%AD%97%E7%AC%A6%E4%B8%B2/>Python代码阅读（第57篇）：倒序字符串</a>
+</h2>
+<div class=meta>
+<p class=date>
+<span data-format=luxon>2020-10-22T12:30:39+08:00</span>
+</p>
+</div>
+<div class=description>
+<p>本篇阅读的代码实现了字符串倒序输出的功能。</p>
+<p>本篇阅读的代码片段来自于<a href=https://github.com/30-seconds/30-seconds-of-python>30-seconds-of-python</a>。</p>
+</div>
+</div>
+<div class="extra content">
+<div class=author>@&nbsp;Felix</div>
+<div class=reading-time>
+<i class="clock icon"></i>1 分钟阅读</div>
+</div>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<article class="ui attached segment card dream-card">
+<a class=image href=https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC56%E7%AF%87_%E8%8E%B7%E5%8F%96%E5%88%97%E8%A1%A8%E7%9A%84%E5%89%8Dn%E4%B8%AA%E6%9C%80%E5%A4%A7%E6%9C%80%E5%B0%8F%E5%80%BC/>
+<img src=/post/Python%e4%bb%a3%e7%a0%81%e9%98%85%e8%af%bb%ef%bc%88%e7%ac%ac56%e7%af%87%ef%bc%89_%e8%8e%b7%e5%8f%96%e5%88%97%e8%a1%a8%e7%9a%84%e5%89%8dn%e4%b8%aa%e6%9c%80%e5%a4%a7%e6%9c%80%e5%b0%8f%e5%80%bc-cover.jpg alt=Python代码阅读（第56篇）：获取列表的前n个最大/最小值>
+</a>
+<div class=content>
+<h2 class="ui medium header">
+<a href=/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC56%E7%AF%87_%E8%8E%B7%E5%8F%96%E5%88%97%E8%A1%A8%E7%9A%84%E5%89%8Dn%E4%B8%AA%E6%9C%80%E5%A4%A7%E6%9C%80%E5%B0%8F%E5%80%BC/>Python代码阅读（第56篇）：获取列表的前n个最大/最小值</a>
+</h2>
+<div class=meta>
+<p class=date>
+<span data-format=luxon>2020-10-21T18:33:40+08:00</span>
+</p>
+</div>
+<div class=description>
+<p>本篇阅读的代码分别获取列表的前<code>n</code>个最大/最小值。</p>
+<p>本篇阅读的代码片段来自于<a href=https://github.com/30-seconds/30-seconds-of-python>30-seconds-of-python</a>。</p>
+</div>
+</div>
+<div class="extra content">
+<div class=author>@&nbsp;Felix</div>
+<div class=reading-time>
+<i class="clock icon"></i>1 分钟阅读</div>
+</div>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<article class="ui attached segment card dream-card">
+<a class=image href=https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC55%E7%AF%87_%E8%8E%B7%E5%8F%96%E5%AD%97%E5%85%B8%E7%9A%84%E6%89%80%E6%9C%89%E9%94%AE%E6%88%96%E6%89%80%E6%9C%89%E5%80%BC%E7%9A%84%E5%88%97%E8%A1%A8/>
+<img src=/post/Python%e4%bb%a3%e7%a0%81%e9%98%85%e8%af%bb%ef%bc%88%e7%ac%ac55%e7%af%87%ef%bc%89_%e8%8e%b7%e5%8f%96%e5%ad%97%e5%85%b8%e7%9a%84%e6%89%80%e6%9c%89%e9%94%ae%e6%88%96%e6%89%80%e6%9c%89%e5%80%bc%e7%9a%84%e5%88%97%e8%a1%a8-cover.jpg alt=Python代码阅读（第55篇）：获取字典的所有键或所有值的列表>
+</a>
+<div class=content>
+<h2 class="ui medium header">
+<a href=/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC55%E7%AF%87_%E8%8E%B7%E5%8F%96%E5%AD%97%E5%85%B8%E7%9A%84%E6%89%80%E6%9C%89%E9%94%AE%E6%88%96%E6%89%80%E6%9C%89%E5%80%BC%E7%9A%84%E5%88%97%E8%A1%A8/>Python代码阅读（第55篇）：获取字典的所有键或所有值的列表</a>
+</h2>
+<div class=meta>
+<p class=date>
+<span data-format=luxon>2020-10-20T12:37:57+08:00</span>
+</p>
+</div>
+<div class=description>
+<p>本篇阅读的代码分别生成了给定字典的键、值列表。</p>
+<p>本篇阅读的代码片段来自于<a href=https://github.com/30-seconds/30-seconds-of-python>30-seconds-of-python</a>。</p>
+</div>
+</div>
+<div class="extra content">
+<div class=author>@&nbsp;Felix</div>
+<div class=reading-time>
+<i class="clock icon"></i>1 分钟阅读</div>
+</div>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<article class="ui attached segment card dream-card">
+<a class=image href=https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC54%E7%AF%87_%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/>
+<img src=/post/Python%e4%bb%a3%e7%a0%81%e9%98%85%e8%af%bb%ef%bc%88%e7%ac%ac54%e7%af%87%ef%bc%89_%e6%96%90%e6%b3%a2%e9%82%a3%e5%a5%91%e6%95%b0%e5%88%97-cover.jpg alt=Python代码阅读（第54篇）：斐波那契数列>
+</a>
+<div class=content>
+<h2 class="ui medium header">
+<a href=/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC54%E7%AF%87_%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/>Python代码阅读（第54篇）：斐波那契数列</a>
+</h2>
+<div class=meta>
+<p class=date>
+<span data-format=luxon>2020-10-19T14:29:25+08:00</span>
+</p>
+</div>
+<div class=description>
+<p>本篇阅读的代码生成了一个包含斐波那契序列的列表。</p>
+<p>本篇阅读的代码片段来自于<a href=https://github.com/30-seconds/30-seconds-of-python>30-seconds-of-python</a>。</p>
+</div>
+</div>
+<div class="extra content">
+<div class=author>@&nbsp;Felix</div>
+<div class=reading-time>
+<i class="clock icon"></i>1 分钟阅读</div>
+</div>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<article class="ui attached segment card dream-card">
+<a class=image href=https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC53%E7%AF%87_%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8D%E5%A4%8D%E6%8B%BC%E6%8E%A5/>
+<img src=/post/Python%e4%bb%a3%e7%a0%81%e9%98%85%e8%af%bb%ef%bc%88%e7%ac%ac53%e7%af%87%ef%bc%89_%e5%ad%97%e7%ac%a6%e4%b8%b2%e9%87%8d%e5%a4%8d%e6%8b%bc%e6%8e%a5-cover.jpg alt=Python代码阅读（第53篇）：字符串重复拼接>
+</a>
+<div class=content>
+<h2 class="ui medium header">
+<a href=/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC53%E7%AF%87_%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%87%8D%E5%A4%8D%E6%8B%BC%E6%8E%A5/>Python代码阅读（第53篇）：字符串重复拼接</a>
+</h2>
+<div class=meta>
+<p class=date>
+<span data-format=luxon>2020-10-16T12:30:55+08:00</span>
+</p>
+</div>
+<div class=description>
+<p>本篇阅读的代码实现了将字符串重复<code>n</code>次的功能。</p>
+<p>本篇阅读的代码片段来自于<a href=https://github.com/30-seconds/30-seconds-of-python>30-seconds-of-python</a>。</p>
+</div>
+</div>
+<div class="extra content">
+<div class=author>@&nbsp;Felix</div>
+<div class=reading-time>
+<i class="clock icon"></i>1 分钟阅读</div>
+</div>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<article class="ui attached segment card dream-card">
+<a class=image href=https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC52%E7%AF%87_%E8%BF%94%E5%9B%9E%E5%88%97%E8%A1%A8%E7%9A%84%E5%A4%B4%E9%83%A8%E5%92%8C%E5%B0%BE%E9%83%A8/>
+<img src=/post/Python%e4%bb%a3%e7%a0%81%e9%98%85%e8%af%bb%ef%bc%88%e7%ac%ac52%e7%af%87%ef%bc%89_%e8%bf%94%e5%9b%9e%e5%88%97%e8%a1%a8%e7%9a%84%e5%a4%b4%e9%83%a8%e5%92%8c%e5%b0%be%e9%83%a8-cover.jpg alt=Python代码阅读（第52篇）：返回列表的头部和尾部>
+</a>
+<div class=content>
+<h2 class="ui medium header">
+<a href=/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC52%E7%AF%87_%E8%BF%94%E5%9B%9E%E5%88%97%E8%A1%A8%E7%9A%84%E5%A4%B4%E9%83%A8%E5%92%8C%E5%B0%BE%E9%83%A8/>Python代码阅读（第52篇）：返回列表的头部和尾部</a>
+</h2>
+<div class=meta>
+<p class=date>
+<span data-format=luxon>2020-10-15T19:02:33+08:00</span>
+</p>
+</div>
+<div class=description>
+<p>本篇阅读的代码实现了返回除了最后一个以外，列表所有元素；以及返回除了第一个以外，列表所有元素的功能。</p>
+<p>本篇阅读的代码片段来自于<a href=https://github.com/30-seconds/30-seconds-of-python>30-seconds-of-python</a>。</p>
+</div>
+</div>
+<div class="extra content">
+<div class=author>@&nbsp;Felix</div>
+<div class=reading-time>
+<i class="clock icon"></i>1 分钟阅读</div>
+</div>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<article class="ui attached segment card dream-card">
+<a class=image href=https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC51%E7%AF%87_%E5%88%A4%E6%96%AD%E7%BB%99%E5%AE%9A%E7%9A%84%E6%95%B0%E6%98%AF%E5%90%A6%E5%9C%A8%E7%BB%99%E5%AE%9A%E7%9A%84%E8%8C%83%E5%9B%B4%E5%86%85/>
+<img src=/post/Python%e4%bb%a3%e7%a0%81%e9%98%85%e8%af%bb%ef%bc%88%e7%ac%ac51%e7%af%87%ef%bc%89_%e5%88%a4%e6%96%ad%e7%bb%99%e5%ae%9a%e7%9a%84%e6%95%b0%e6%98%af%e5%90%a6%e5%9c%a8%e7%bb%99%e5%ae%9a%e7%9a%84%e8%8c%83%e5%9b%b4%e5%86%85-cover.jpg alt=Python代码阅读（第51篇）：判断给定的数是否在给定的范围内>
+</a>
+<div class=content>
+<h2 class="ui medium header">
+<a href=/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC51%E7%AF%87_%E5%88%A4%E6%96%AD%E7%BB%99%E5%AE%9A%E7%9A%84%E6%95%B0%E6%98%AF%E5%90%A6%E5%9C%A8%E7%BB%99%E5%AE%9A%E7%9A%84%E8%8C%83%E5%9B%B4%E5%86%85/>Python代码阅读（第51篇）：判断给定的数是否在给定的范围内</a>
+</h2>
+<div class=meta>
+<p class=date>
+<span data-format=luxon>2020-10-14T12:30:56+08:00</span>
+</p>
+</div>
+<div class=description>
+<p>本篇阅读的代码实现了判断给定的数是否在给定的范围内的功能。</p>
+<p>本篇阅读的代码片段来自于<a href=https://github.com/30-seconds/30-seconds-of-python>30-seconds-of-python</a>。</p>
+</div>
+</div>
+<div class="extra content">
+<div class=author>@&nbsp;Felix</div>
+<div class=reading-time>
+<i class="clock icon"></i>1 分钟阅读</div>
+</div>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<article class="ui attached segment card dream-card">
+<a class=image href=https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC50%E7%AF%87_%E5%AF%B9%E5%88%97%E8%A1%A8%E9%97%B4%E9%9A%94%E5%8F%96%E5%85%83%E7%B4%A0/>
+<img src=/post/Python%e4%bb%a3%e7%a0%81%e9%98%85%e8%af%bb%ef%bc%88%e7%ac%ac50%e7%af%87%ef%bc%89_%e5%af%b9%e5%88%97%e8%a1%a8%e9%97%b4%e9%9a%94%e5%8f%96%e5%85%83%e7%b4%a0-cover.jpg alt=Python代码阅读（第50篇）：对列表间隔取元素>
+</a>
+<div class=content>
+<h2 class="ui medium header">
+<a href=/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB%E7%AC%AC50%E7%AF%87_%E5%AF%B9%E5%88%97%E8%A1%A8%E9%97%B4%E9%9A%94%E5%8F%96%E5%85%83%E7%B4%A0/>Python代码阅读（第50篇）：对列表间隔取元素</a>
+</h2>
+<div class=meta>
+<p class=date>
+<span data-format=luxon>2020-10-13T12:30:32+08:00</span>
+</p>
+</div>
+<div class=description>
+<p>本篇阅读的代码实现了在一个列表中每间隔<code>n</code>个数取一个元素的功能。</p>
+<p>本篇阅读的代码片段来自于<a href=https://github.com/30-seconds/30-seconds-of-python>30-seconds-of-python</a>。</p>
+</div>
+</div>
+<div class="extra content">
+<div class=author>@&nbsp;Felix</div>
+<div class=reading-time>
+<i class="clock icon"></i>1 分钟阅读</div>
+</div>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet eight wide computer four wide large screen four wide widescreen column dream-column">
+<article class="ui center aligned attached segment card dream-card">
+<div class=content>
+<div class="ui medium header">
+<a href=/tags/python/page/4/ title=上一页>
+上一页
+</a>
+</div>
+</div>
+</article>
+<article class="ui center aligned attached segment card dream-card">
+<div class=content>
+<div class="ui medium header">
+<a href=/tags/python/page/6/ title=下一页>
+下一页
+</a>
+</div>
+</div>
+</article>
+</div>
+</div>
+<footer class="ui basic center aligned segment" style=background-color:transparent>
+<p>© 2020 - 2021 独白</p>
+<p>Powered by <a href=https://gohugo.io/ target=_blank>Hugo</a> with theme <a href=https://github.com/g1eny0ung/hugo-theme-dream target=_blank>Dream</a>.</p>
+</footer>
+</div>
+</section>
+<section class=back>
+<div class=dream-max-width>
+<header class="ui basic very padded segment dream-header">
+<div class="ui small circular image">
+<img src=/global/avatar.jpg alt=avatar>
+</div>
+<div class=content>
+<h1 class="ui medium header">zhangfelix's blog test<span class="sub header">Monologue</span>
+</h1>
+<article class="ui horizontal list">
+<a class=item href=/posts>
+<i class="archive icon" title=归档></i>
+</a>
+<a class=item href=/categories>
+<i class="th list icon" title=所有分类></i>
+</a>
+<a class=item href=/tags>
+<i class="tags icon" title=所有标签></i>
+</a>
+</article>
+<div class=dream-tags>
+<a class="ui label" href=/tags/github/ title=GitHub>
+GitHub
+</a>
+<a class="ui label" href=/tags/hugo/ title=Hugo>
+Hugo
+</a>
+<a class="ui label" href=/tags/python/ title=Python>
+Python
+</a>
+</div>
+</div>
+</header>
+<div class="ui relaxed grid dream-grid dream-back">
+<div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+<article class="ui segment markdown-body">
+<div class="ui medium header">Desc</div>
+<p>Hi, my name is Felix.</p>
+<p>This is my blog.</p>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+<article class="ui segment">
+<div class="ui medium header">社交链接</div>
+<nav class="ui secondary menu dream-menu dream-socials">
+<a class=item href=/index.xml>
+<i class="large rss square icon" title=RSS></i>
+</a>
+<a class=item href=mailto:zhn.i@hotmail.com>
+<i class="large mail icon" title=Email></i>
+</a>
+<a class=item href=https://twitter.com/zhangnfelix target=_blank>
+<i class="large twitter icon" title=Twitter></i>
+</a>
+<a class=item href=https://github.com/zhangfelix target=_blank>
+<i class="large github icon" title=GitHub></i>
+</a>
+</nav>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.6.0></script>
+<script src=https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js></script>
+<div class="ui segment" id=dream-search>
+<div class="ui search">
+<div class="ui transparent input">
+<input class=prompt type=text placeholder=搜索>
+</div>
+<div class=results></div>
+</div>
+</div>
+<script>$(document).ready(function(){$.getJSON('https://www.zhangfelix.com/index.json',function(a){$('.ui.search').search({source:a,searchFields:['title'],showNoResults:!1})})})</script>
+<script src=/js/search.js></script>
+<script>window.background="#fff",window.defaultDark=null,window.backgroundDark="black",window.backgroundImageDark="/global/backgroundDark.jpg",window.darkNav=null,window.maxTags=null,window.hasTwitterEmbed=null,window.fixedNav=!0,window.hasTwitterEmbed&&(window.twttr=function(c,d,e){var b,f=c.getElementsByTagName(d)[0],a=window.twttr||{};return c.getElementById(e)?a:(b=c.createElement(d),b.id=e,b.src='https://platform.twitter.com/widgets.js',f.parentNode.insertBefore(b,f),a._e=[],a.ready=function(b){a._e.push(b)},a)}(document,'script','twitter-wjs'))</script>
+<script src=https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/js/jquery.overlayScrollbars.min.js></script>
+<script src=/js/header.js></script>
+<script src=/js/main.js></script>
+<script src=/js/theme.js></script>
+<script src=https://cdn.jsdelivr.net/npm/luxon@1.26.0></script>
+<script>format();function format(){$('span[data-format="luxon"]').each(function(){var a=$(this).text();$(this).text(luxon.DateTime.fromISO(a,{locale:"zh"}).toFormat("yyyy年MM月dd日"))})}</script>
+<script src=/js/imagesloaded.pkgd.min.js></script>
+<script src=/js/masonry.pkgd.min.js></script>
+<script src=/js/grid.js></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-169268545-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</body>
+</html>

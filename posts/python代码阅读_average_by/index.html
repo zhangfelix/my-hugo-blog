@@ -1,0 +1,249 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=x-ua-compatible content="ie=edge">
+<title>Python代码阅读：average_by | 独白</title>
+<link href=/global/favicon.ico rel="shortcut icon" type=image/x-icon>
+<meta name=author content="Felix">
+<meta name=description content="本文中的代码片段来自于30-seconds-of-python。
+">
+<meta name=generator content="Hugo 0.86.0">
+<link rel=canonical href=https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB_average_by/>
+<meta property="og:title" content="Python代码阅读：average_by">
+<meta property="og:description" content="本文中的代码片段来自于30-seconds-of-python。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB_average_by/"><meta property="og:image" content="https://www.zhangfelix.com"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2020-06-18T22:57:04+08:00">
+<meta property="article:modified_time" content="2020-06-18T22:57:04+08:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://www.zhangfelix.com">
+<meta name=twitter:title content="Python代码阅读：average_by">
+<meta name=twitter:description content="本文中的代码片段来自于30-seconds-of-python。">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css>
+<link rel=stylesheet href=/css/icomoon.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/css/OverlayScrollbars.min.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css>
+<link rel=stylesheet href=/css/site.css>
+<style>.ui.header a:not(.item,.ui.button):hover{text-decoration:underline}a:not(.item,.ui.button){color:#2e8b57!important}.inverted a:not(.item,.ui.button){color:#8fbc8f!important}body.default{background-color:#fff;background-image:url(/global/background.jpg)}body.dark{background-color:#000;background-image:url(/global/backgroundDark.jpg)}</style>
+<link rel=stylesheet data-highlight href=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css>
+</head>
+<body class=default>
+<nav class="ui secondary menu dream-menu dream-nav">
+<a class="item dream-flip-toggle" title=翻转！>
+<i class="large link bullseye icon"></i>
+</a>
+<a class=item href=https://www.zhangfelix.com title=首页>
+<i class="large link home icon"></i>
+</a>
+<a class=item onclick=themeSwitch(event)>
+<i class="large link icon theme-switch"></i>
+</a>
+<a class=item title=搜索 onclick=toggleSearch(event)>
+<i class="large link search icon"></i>
+</a>
+</nav>
+<div class=flip-container>
+<div class=flipper>
+<section class=front>
+<div class=dream-max-width>
+<div class="ui relaxed centered grid dream-grid dream-grid-single">
+<aside class="sixteen wide mobile sixteen wide tablet three wide computer column dream-single-aside">
+<div class="ui segment toc">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#average_by><code>average_by</code></a>
+<ul>
+<li><a href=#lambda表达式><code>lambda</code>表达式</a></li>
+<li><a href=#map函数><code>map</code>函数</a></li>
+</ul>
+</li>
+<li><a href=#其他类似函数>其他类似函数</a>
+<ul>
+<li><a href=#max_by><code>max_by</code></a></li>
+<li><a href=#min_by><code>min_by</code></a></li>
+<li><a href=#sum_by><code>sum_by</code></a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</aside>
+<div class="sixteen wide mobile sixteen wide tablet ten wide computer column markdown-body dream-single" id=dream-save-post-as-img>
+<section class="ui top attached segment">
+<header>
+<h1 class="ui large header">Python代码阅读：average_by<span class="sub header">
+<span class=left>
+@
+Felix
+|
+<span data-format=luxon>2020-06-18T22:57:04+08:00</span>
+| 2 分钟阅读
+| 更新于
+<span data-format=luxon>2020-06-18T22:57:04+08:00</span>
+</span>
+<span class=dream-share>
+<a href=# class=save-as-image title=保存为图片 onclick=savePostAsImg()>
+<i class="save icon"></i>
+</a>
+<a href="https://twitter.com/intent/tweet?text=Python%e4%bb%a3%e7%a0%81%e9%98%85%e8%af%bb%ef%bc%9aaverage_by&url=https%3a%2f%2fwww.zhangfelix.com%2fposts%2fpython%25E4%25BB%25A3%25E7%25A0%2581%25E9%2598%2585%25E8%25AF%25BB_average_by%2f" title=Twitter>
+<i class="twitter icon"></i>
+</a>
+<a href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fwww.zhangfelix.com%2fposts%2fpython%25E4%25BB%25A3%25E7%25A0%2581%25E9%2598%2585%25E8%25AF%25BB_average_by%2f" title=Facebook>
+<i class="facebook icon"></i>
+</a>
+</span>
+</span>
+</h1>
+</header>
+<article class=main>
+<img class=cover src=/post/Python%e4%bb%a3%e7%a0%81%e9%98%85%e8%af%bb_average_by-cover.jpg>
+<p>本文中的代码片段来自于<a href=https://github.com/30-seconds/30-seconds-of-python>30-seconds-of-python</a>。</p>
+<h2 id=average_by><code>average_by</code></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>average_by</span>(lst, fn<span style=color:#f92672>=</span><span style=color:#66d9ef>lambda</span> x: x):
+  <span style=color:#66d9ef>return</span> sum(map(fn, lst), <span style=color:#ae81ff>0.0</span>) <span style=color:#f92672>/</span> len(lst)
+
+<span style=color:#75715e># EXAMPLES</span>
+average_by([{ <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>4</span> }, { <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>2</span> }, { <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>8</span> }, { <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>6</span> }], <span style=color:#66d9ef>lambda</span> x: x[<span style=color:#e6db74>&#39;n&#39;</span>]) <span style=color:#75715e># 5.0</span>
+</code></pre></div><p>该函数用于在列表中求取平均数。该代码片段中主要使用了<code>lambda</code>表达式和<code>map</code>函数。该函数的主要逻辑是使用<code>lambda</code>表达式和<code>map</code>函数提取由待计算的数值组成的迭代器，然后使用<code>sum</code>函数计算列表的和，再除以列表长度。</p>
+<h3 id=lambda表达式><code>lambda</code>表达式</h3>
+<p>形如<code>lambda parameters: expression</code>的表达式可以创建一个匿名函数。在该代码片段中，<code>lambda</code>表达式出现在函数<code>average_by</code>的<strong>参数</strong>定义中，作为一个参数传给了<code>fn</code>。因此在<code>average_by</code>函数体中<code>fn</code>作为刚刚在参数中定义的函数发挥作用。</p>
+<p>函数<code>average_by</code>的默认参数中的<code>lambda</code>表达式是一个直接返回输入参数的函数。在例子中，向<code>average_by</code>传入的匿名函数返回字典中<code>key</code>值为<code>n</code>项的值。</p>
+<h3 id=map函数><code>map</code>函数</h3>
+<p><code>map</code>函数是Python内置的一个高阶函数，这个函数很有意思，它的参数是一个函数以及一个可迭代对象。它会返回一个迭代器，这个迭代器会将参数中的函数应用在参数中可迭代对象上。</p>
+<h2 id=其他类似函数>其他类似函数</h2>
+<p>在<a href=https://github.com/30-seconds/30-seconds-of-python>30-seconds-of-python</a>中还有一些类似的代码片段。在理解了<code>average_by</code>函数之后，这些都很容理解。</p>
+<h3 id=max_by><code>max_by</code></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>max_by</span>(lst, fn):
+  <span style=color:#66d9ef>return</span> max(map(fn, lst))
+
+<span style=color:#75715e># EXAMPLES</span>
+max_by([{ <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>4</span> }, { <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>2</span> }, { <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>8</span> }, { <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>6</span> }], <span style=color:#66d9ef>lambda</span> v : v[<span style=color:#e6db74>&#39;n&#39;</span>]) <span style=color:#75715e># 8</span>
+</code></pre></div><h3 id=min_by><code>min_by</code></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>min_by</span>(lst, fn):
+  <span style=color:#66d9ef>return</span> min(map(fn, lst))
+
+<span style=color:#75715e># EXAMPLES</span>
+min_by([{ <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>4</span> }, { <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>2</span> }, { <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>8</span> }, { <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>6</span> }], <span style=color:#66d9ef>lambda</span> v : v[<span style=color:#e6db74>&#39;n&#39;</span>]) <span style=color:#75715e># 2</span>
+</code></pre></div><h3 id=sum_by><code>sum_by</code></h3>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>sum_by</span>(lst, fn):
+  <span style=color:#66d9ef>return</span> sum(map(fn, lst))
+
+<span style=color:#75715e># EXAMPLES</span>
+sum_by([{ <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>4</span> }, { <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>2</span> }, { <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>8</span> }, { <span style=color:#e6db74>&#39;n&#39;</span>: <span style=color:#ae81ff>6</span> }], <span style=color:#66d9ef>lambda</span> v : v[<span style=color:#e6db74>&#39;n&#39;</span>]) <span style=color:#75715e># 20</span>
+</code></pre></div>
+</article>
+</section>
+<article class="ui segment post-disqus-area" data-html2canvas-ignore>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="https://www.zhangfelix.com/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB_average_by/",this.page.identifier="/posts/python%E4%BB%A3%E7%A0%81%E9%98%85%E8%AF%BB_average_by/"};(function(){var a=document,b=a.createElement('script');b.src='https://zhangfelix-blog.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+</article>
+<article class="ui segment utterances-comments" data-html2canvas-ignore>
+<script src=https://utteranc.es/client.js repo=zhangfelix/zhangfelix.github.io issue-term=og:title theme=github-light crossorigin=anonymous async></script>
+</article>
+</div>
+</div>
+<footer class="ui basic center aligned segment" style=background-color:transparent>
+<p>© 2020 - 2021 独白</p>
+<p>Powered by <a href=https://gohugo.io/ target=_blank>Hugo</a> with theme <a href=https://github.com/g1eny0ung/hugo-theme-dream target=_blank>Dream</a>.</p>
+</footer>
+</div>
+</section>
+<section class=back>
+<div class=dream-max-width>
+<header class="ui basic very padded segment dream-header">
+<div class="ui small circular image">
+<img src=/global/avatar.jpg alt=avatar>
+</div>
+<div class=content>
+<h1 class="ui medium header">zhangfelix's blog test<span class="sub header">Monologue</span>
+</h1>
+<article class="ui horizontal list">
+<a class=item href=/posts>
+<i class="archive icon" title=归档></i>
+</a>
+<a class=item href=/categories>
+<i class="th list icon" title=所有分类></i>
+</a>
+<a class=item href=/tags>
+<i class="tags icon" title=所有标签></i>
+</a>
+</article>
+<div class=dream-tags>
+<a class="ui label" href=/tags/github/ title=GitHub>
+GitHub
+</a>
+<a class="ui label" href=/tags/hugo/ title=Hugo>
+Hugo
+</a>
+<a class="ui label" href=/tags/python/ title=Python>
+Python
+</a>
+</div>
+</div>
+</header>
+<div class="ui relaxed grid dream-grid dream-back">
+<div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+<article class="ui segment markdown-body">
+<div class="ui medium header">Desc</div>
+<p>Hi, my name is Felix.</p>
+<p>This is my blog.</p>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+<article class="ui segment">
+<div class="ui medium header">社交链接</div>
+<nav class="ui secondary menu dream-menu dream-socials">
+<a class=item href=/index.xml>
+<i class="large rss square icon" title=RSS></i>
+</a>
+<a class=item href=mailto:zhn.i@hotmail.com>
+<i class="large mail icon" title=Email></i>
+</a>
+<a class=item href=https://twitter.com/zhangnfelix target=_blank>
+<i class="large twitter icon" title=Twitter></i>
+</a>
+<a class=item href=https://github.com/zhangfelix target=_blank>
+<i class="large github icon" title=GitHub></i>
+</a>
+</nav>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.6.0></script>
+<script src=https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js></script>
+<div class="ui segment" id=dream-search>
+<div class="ui search">
+<div class="ui transparent input">
+<input class=prompt type=text placeholder=搜索>
+</div>
+<div class=results></div>
+</div>
+</div>
+<script>$(document).ready(function(){$.getJSON('https://www.zhangfelix.com/index.json',function(a){$('.ui.search').search({source:a,searchFields:['title'],showNoResults:!1})})})</script>
+<script src=/js/search.js></script>
+<script>window.background="#fff",window.defaultDark=null,window.backgroundDark="black",window.backgroundImageDark="/global/backgroundDark.jpg",window.darkNav=null,window.maxTags=null,window.hasTwitterEmbed=null,window.fixedNav=!0,window.hasTwitterEmbed&&(window.twttr=function(c,d,e){var b,f=c.getElementsByTagName(d)[0],a=window.twttr||{};return c.getElementById(e)?a:(b=c.createElement(d),b.id=e,b.src='https://platform.twitter.com/widgets.js',f.parentNode.insertBefore(b,f),a._e=[],a.ready=function(b){a._e.push(b)},a)}(document,'script','twitter-wjs'))</script>
+<script src=https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/js/jquery.overlayScrollbars.min.js></script>
+<script src=/js/header.js></script>
+<script src=/js/main.js></script>
+<script src=/js/theme.js></script>
+<script src=https://cdn.jsdelivr.net/npm/luxon@1.26.0></script>
+<script>format();function format(){$('span[data-format="luxon"]').each(function(){var a=$(this).text();$(this).text(luxon.DateTime.fromISO(a,{locale:"zh"}).toFormat("yyyy年MM月dd日"))})}</script>
+<script src=/js/scrollToTop.js></script>
+<script src=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js></script>
+<script src=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js></script>
+<script src=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/python.min.js></script>
+<script>hljs.highlightAll(),setHighlightTheme();function setHighlightTheme(){var a=localStore.getItem('hugo-theme-dream-is-dark'),b,c,d;a=a?a:window.defaultDark?'y':a,b="gruvbox-light",c="gruvbox-dark",d=a==='y'?c:b,$('link[data-highlight]').attr('href','https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/'+d+'.min.css'),$('pre').css('background',a==='y'?'#333':'')}</script>
+<script src=https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1></script>
+<script src=/js/post.js defer></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-169268545-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</body>
+</html>

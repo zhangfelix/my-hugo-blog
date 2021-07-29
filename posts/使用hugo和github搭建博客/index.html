@@ -1,0 +1,428 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=x-ua-compatible content="ie=edge">
+<title>使用Hugo和GitHub搭建博客 | 独白</title>
+<link href=/global/favicon.ico rel="shortcut icon" type=image/x-icon>
+<meta name=author content="Felix">
+<meta name=description content="折腾了几天博客的框架终于搭建起来了。研究了一番之后，最终还是选择使用Hugo和GitHub来搭建博客。本文介绍了如何使用Hugo来搭建静态博客网站，并将其部署在GitHub上。使用https://&amp;lt;USERNAME&amp;gt;.github.io或者自定义的域名访问博客。
+">
+<meta name=generator content="Hugo 0.86.0">
+<link rel=canonical href=https://www.zhangfelix.com/posts/%E4%BD%BF%E7%94%A8hugo%E5%92%8Cgithub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/>
+<meta property="og:title" content="使用Hugo和GitHub搭建博客">
+<meta property="og:description" content="折腾了几天博客的框架终于搭建起来了。研究了一番之后，最终还是选择使用Hugo和GitHub来搭建博客。本文介绍了如何使用Hugo来搭建静态博客网站，并将其部署在GitHub上。使用https://<USERNAME>.github.io或者自定义的域名访问博客。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.zhangfelix.com/posts/%E4%BD%BF%E7%94%A8hugo%E5%92%8Cgithub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"><meta property="og:image" content="https://www.zhangfelix.com"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2020-06-13T19:45:22+08:00">
+<meta property="article:modified_time" content="2020-06-14T15:58:22+08:00">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://www.zhangfelix.com">
+<meta name=twitter:title content="使用Hugo和GitHub搭建博客">
+<meta name=twitter:description content="折腾了几天博客的框架终于搭建起来了。研究了一番之后，最终还是选择使用Hugo和GitHub来搭建博客。本文介绍了如何使用Hugo来搭建静态博客网站，并将其部署在GitHub上。使用https://<USERNAME>.github.io或者自定义的域名访问博客。">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css>
+<link rel=stylesheet href=/css/icomoon.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/css/OverlayScrollbars.min.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css>
+<link rel=stylesheet href=/css/site.css>
+<style>.ui.header a:not(.item,.ui.button):hover{text-decoration:underline}a:not(.item,.ui.button){color:#2e8b57!important}.inverted a:not(.item,.ui.button){color:#8fbc8f!important}body.default{background-color:#fff;background-image:url(/global/background.jpg)}body.dark{background-color:#000;background-image:url(/global/backgroundDark.jpg)}</style>
+<link rel=stylesheet data-highlight href=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/gruvbox-light.min.css>
+</head>
+<body class=default>
+<nav class="ui secondary menu dream-menu dream-nav">
+<a class="item dream-flip-toggle" title=翻转！>
+<i class="large link bullseye icon"></i>
+</a>
+<a class=item href=https://www.zhangfelix.com title=首页>
+<i class="large link home icon"></i>
+</a>
+<a class=item onclick=themeSwitch(event)>
+<i class="large link icon theme-switch"></i>
+</a>
+<a class=item title=搜索 onclick=toggleSearch(event)>
+<i class="large link search icon"></i>
+</a>
+</nav>
+<div class=flip-container>
+<div class=flipper>
+<section class=front>
+<div class=dream-max-width>
+<div class="ui relaxed centered grid dream-grid dream-grid-single">
+<aside class="sixteen wide mobile sixteen wide tablet three wide computer column dream-single-aside">
+<div class="ui segment toc">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#hugo的安装和使用1>Hugo的安装和使用</a>
+<ul>
+<li><a href=#hugo的安装>Hugo的安装</a></li>
+<li><a href=#建立新站点>建立新站点</a></li>
+<li><a href=#添加主题>添加主题</a></li>
+<li><a href=#新建文章>新建文章</a></li>
+<li><a href=#文章中添加图片>文章中添加图片</a></li>
+<li><a href=#开启hugo本地服务>开启Hugo本地服务</a></li>
+<li><a href=#配置文件的修改>配置文件的修改</a></li>
+<li><a href=#谷歌分析的配置>谷歌分析的配置</a></li>
+<li><a href=#disqus评论系统的配置>Disqus评论系统的配置</a></li>
+</ul>
+</li>
+<li><a href=#在github部署个人博客>在GitHub部署个人博客</a>
+<ul>
+<li><a href=#创建github项目>创建GitHub项目</a></li>
+<li><a href=#本地项目与github仓库同步>本地项目与GitHub仓库同步</a></li>
+<li><a href=#在新的环境继续工作>在新的环境继续工作</a></li>
+<li><a href=#git-submodule的简单说明><code>git submodule</code>的简单说明</a></li>
+</ul>
+</li>
+<li><a href=#给博客配置自己的域名>给博客配置自己的域名</a></li>
+</ul>
+</nav>
+</div>
+</aside>
+<div class="sixteen wide mobile sixteen wide tablet ten wide computer column markdown-body dream-single" id=dream-save-post-as-img>
+<section class="ui top attached segment">
+<header>
+<h1 class="ui large header">使用Hugo和GitHub搭建博客<span class="sub header">
+<span class=left>
+@
+Felix
+|
+<span data-format=luxon>2020-06-13T19:45:22+08:00</span>
+| 8 分钟阅读
+| 更新于
+<span data-format=luxon>2020-06-14T15:58:22+08:00</span>
+</span>
+<span class=dream-share>
+<a href=# class=save-as-image title=保存为图片 onclick=savePostAsImg()>
+<i class="save icon"></i>
+</a>
+<a href="https://twitter.com/intent/tweet?text=%e4%bd%bf%e7%94%a8Hugo%e5%92%8cGitHub%e6%90%ad%e5%bb%ba%e5%8d%9a%e5%ae%a2&url=https%3a%2f%2fwww.zhangfelix.com%2fposts%2f%25E4%25BD%25BF%25E7%2594%25A8hugo%25E5%2592%258Cgithub%25E6%2590%25AD%25E5%25BB%25BA%25E5%258D%259A%25E5%25AE%25A2%2f" title=Twitter>
+<i class="twitter icon"></i>
+</a>
+<a href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fwww.zhangfelix.com%2fposts%2f%25E4%25BD%25BF%25E7%2594%25A8hugo%25E5%2592%258Cgithub%25E6%2590%25AD%25E5%25BB%25BA%25E5%258D%259A%25E5%25AE%25A2%2f" title=Facebook>
+<i class="facebook icon"></i>
+</a>
+</span>
+</span>
+</h1>
+</header>
+<article class=main>
+<img class=cover src=/post/%e4%bd%bf%e7%94%a8Hugo%e5%92%8cGitHub%e6%90%ad%e5%bb%ba%e5%8d%9a%e5%ae%a2-cover.jpg>
+<p>折腾了几天博客的框架终于搭建起来了。研究了一番之后，最终还是选择使用Hugo和GitHub来搭建博客。本文介绍了如何使用Hugo来搭建静态博客网站，并将其部署在GitHub上。使用<code>https://&lt;USERNAME>.github.io</code>或者自定义的域名访问博客。</p>
+<h2 id=hugo的安装和使用1>Hugo的安装和使用<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup></h2>
+<h3 id=hugo的安装>Hugo的安装</h3>
+<p>初步使用Hugo的话，只需要跟随官网的文档过一遍<a href=https://gohugo.io/getting-started/quick-start/>Quick Start</a>就可以了解基本的安装、使用方法了。这里根据我自己的经历也进行简单的说明。</p>
+<p>在Mac系统，通过包管理工具<a href=https://brew.sh/>Homebrew</a>可以非常简单的安装Hugo。</p>
+<pre><code>brew install hugo
+</code></pre>
+<p>等待安装完成之后，可以使用<code>hugo version</code>命令来验证。</p>
+<h3 id=建立新站点>建立新站点</h3>
+<p>接下来从终端进入到你想要放置博客站点内容的目录下面使用</p>
+<pre><code>hugo new site myblog
+</code></pre>
+<p>来建立站点。该命令会在当前目录下新建一个名为<code>myblog</code>的文件夹。你所有的站点文件都会在这个文件夹下面存放。</p>
+<h3 id=添加主题>添加主题</h3>
+<p>与其他的站点工具不同，Hugo没有默认的主题，需要先添加一个主题才能新建文章。Hugo的官网上有很多的<a href=https://themes.gohugo.io/>主题</a>可选。选定一个喜欢的主题之后，需要将其下载到<code>myblog</code>文件夹中。在主题说明的页面中点击"download"的按钮，会进入到对应的GitHub页面中。有很多种方式可以将主题文件下载，并放置到<code>myblog/themes/&lt;YOURTHEME></code>文件夹中（<code>&lt;YOURTHEME></code>是主题的名称，可以在该主题的GitHub仓库的页面看到）。在这里为了使用git对站点进行管理，实现在不同的设备上方便的对站点进行维护，我们使用git的submodule功能。</p>
+<pre><code>cd myblog
+git init
+git submodule add https://github.com/budparr/gohugo-theme-&lt;YOURTHEME&gt;.git themes/&lt;YOURTHEME&gt;
+</code></pre>
+<p>接下来，我们需要在配置文件中指名站点所使用的主题。打开<code>config.toml</code>直接编辑或者使用<code>echo 'theme = "&lt;YOURTHEME>"' >> config.toml</code>命令。配置文件中还有其他的可配置内容，这些我们暂时不去管他。</p>
+<h3 id=新建文章>新建文章</h3>
+<p>新建文章可以使用如下的命令，或者直接在<code>content/&lt;CATEGORY>/&lt;FILE>.&lt;FORMAT></code>里面手动创建。</p>
+<pre><code>hugo new posts/my-first-post.md
+</code></pre>
+<p>在这里建议使用Hugo的<code>new</code>命令创建，因为根据主题不同，使用<code>new</code>命令创建的文件会包含简单的模版框架。例如：</p>
+<pre><code>---
+title: my-first-post
+date: 2020-06-13T19:45:22+08:00
+lastmod: 2020-06-13T19:45:22+08:00
+author: Author
+cover: /post/xxx-cover.jpg
+categories: [&quot;技术&quot;]
+tags: [&quot;Hugo&quot;, &quot;GitHub&quot;]
+draft: true
+---
+</code></pre>
+<p>具体的配置方式和参数的意义，还请查看对应的主题说明。</p>
+<h3 id=文章中添加图片>文章中添加图片</h3>
+<p>Hugo的配置文件和文章中引用图片都是从<code>static</code>作为根目录的。也就是说上面例子中的<code>/post/xxx-cover.jpg</code>实际是在<code>static</code>文件夹中。</p>
+<pre><code>.
+└── static
+	└── post
+        └── xxx-cover.jpg
+</code></pre>
+<h3 id=开启hugo本地服务>开启Hugo本地服务</h3>
+<p>我们需要将Hugo本地服务跑起来，才能看到上面操作的成果，看到新的站点的样子。</p>
+<pre><code>hugo server -D
+
+                   | EN
++------------------+----+
+  Pages            | 10
+  Paginator pages  |  0
+  Non-page files   |  0
+  Static files     |  3
+  Processed images |  0
+  Aliases          |  1
+  Sitemaps         |  1
+  Cleaned          |  0
+
+Total in 11 ms
+Watching for changes in /Users/workspace/myblog/{content,data,layouts,static,themes}
+Watching for config changes in /Users/workspace/myblog/config.toml
+Environment: &quot;development&quot;
+Serving pages from memory
+Running in Fast Render Mode. For full rebuilds on change: hugo server --disableFastRender
+Web Server is available at http://localhost:1313/ (bind address 127.0.0.1)
+Press Ctrl+C to stop
+</code></pre>
+<p>打开<a href=http://localhost:1313/>http://localhost:1313/</a>，我们就可以看到刚才新建的站点了。此时标记为草稿的文章也会展示，但是在实际部署站点的时候需要将文章中的<code>draft: true</code>配置改为<code>false</code>。在本地服务开启的时候，对站点的改变（修改配置，修改、新增文章等）会直接展示出来。</p>
+<h3 id=配置文件的修改>配置文件的修改</h3>
+<p>打开配置<code>config.toml</code>可以看到很多的参数可以配置，这里只描述最基本的内容，不同的主题可能会支持不同的参数配置，具体请看对应主题的说明文档。</p>
+<p><code>baseURL</code>是站点的域名。<code>title</code>是站点的名称。<code>theme</code>是站点的主题。</p>
+<h3 id=谷歌分析的配置>谷歌分析的配置</h3>
+<p>很多主题都支持谷歌分析，启用谷歌分许需要配置追踪ID。追踪ID在谷歌分析的<a href=https://analytics.google.com/analytics/web/>官网</a>注册即可获得。</p>
+<h3 id=disqus评论系统的配置>Disqus评论系统的配置</h3>
+<p>很多主题都支持评论系统，针对不同的评论系统/主题有不同的配置方式。这里简单说明下Disqus的配置。一般而言你只需要在支持Disqus的主题中配置Disqus的shortname即可。</p>
+<p>shortname在<a href=https://disqus.com/profile/login/>Disqus</a>的官网进行注册便可以获得。在注册过程就可以看到你的站点的shortname，如果遗忘的话，<a href=https://disqus.com/admin/settings/general/>admin-setting</a>页面也可以找到。</p>
+<h2 id=在github部署个人博客>在GitHub部署个人博客</h2>
+<p>因为是个人博客，所以我们使用GitHub Pages的User Pages功能，具体的功能描述，可以查看<a href=https://help.github.com/en/github/working-with-github-pages>官方文档</a>。</p>
+<h3 id=创建github项目>创建GitHub项目</h3>
+<p>首先我们需要在GitHub上新建两个仓库分别用来保存站点源文件和发布站点。其中用来存放站点源文件的仓库可以根据自己喜好命名（例如<code>&lt;YOUR-PROJECT></code>），而用来发布站点的仓库的名称需要使用<code>&lt;USERNAME>.github.io</code>。</p>
+<h3 id=本地项目与github仓库同步>本地项目与GitHub仓库同步</h3>
+<p>在<code>myblog</code>文件夹中新建<code>.gitignore</code>文件，并在其中添加下面的内容：</p>
+<pre><code>### Hugo ###
+# Generated files by hugo
+# /public/
+/resources/_gen/
+# /themes/
+
+# Executable may be added to repository
+hugo.exe
+hugo.darwin
+hugo.linux
+
+# OSX
+.DS_Store
+</code></pre>
+<p>其中<code>public</code>文件夹里面的内容是Hugo生成的静态网页文件，需要上传至<code>&lt;USERNAME>.github.io</code>，因为下面会使用<code>git submodule</code>所以这里不需要忽略。<code>themes</code>文件夹也是一样。</p>
+<p>由于在上面“添加主题”一节已经在<code>myblog</code>文件夹下初始化过git，同时将themes使用<code>git submodule</code>的方式进行了添加。所以现在只需要用一样的方法处理<code>public</code>文件夹。不过首先我们需要删除一下现有的<code>public</code>文件夹。</p>
+<pre><code>rm -rf public
+git submodule add -b master https://github.com/&lt;USERNAME&gt;/&lt;USERNAME&gt;.github.io.git public
+</code></pre>
+<p>接下来要做的事情是使用<code>hugo -t &lt;YOURTHEME></code>来重建静态站点，然后进入到<code>public</code>文件夹内<code>commit</code>所有的修改并上传。在这里我们同样使用官网上介绍的部署脚本的方式。首先新建<code>deploy.sh</code>脚本。</p>
+<pre><code>#!/bin/sh
+
+# If a command fails then the deploy stops
+set -e
+
+# Print out commands before executing them
+set -x
+
+printf &quot;\033[0;32mDeploying updates to GitHub...\033[0m\n&quot;
+
+# Build the project.
+hugo -t &lt;YOURTHEME&gt;
+
+# Go To Public folder
+cd public
+
+# Add changes to git.
+git add .
+
+# Commit changes.
+msg=&quot;rebuilding site $(date)&quot;
+if [ -n &quot;$*&quot; ]; then
+	msg=&quot;$*&quot;
+fi
+git commit -m &quot;$msg&quot;
+
+# Push source and build repos.
+git push origin master
+
+# Back to the origin folder
+# cd ..
+
+# rm -rf public
+</code></pre>
+<p>接下来就可以使用<code>./deploy.sh "Your optional commit message"</code>提交静态页面到<code>&lt;USERNAME>.github.io</code>上。成功之后，就可以从浏览器访问<code>https://&lt;USERNAME>.github.io</code>来查看你的博客内容了。然后我们将博客的源文件也提交至<code>&lt;YOUR-PROJECT></code>。</p>
+<pre><code>git submodule init
+git add .
+git commit -m &quot;注释&quot;
+git remote add origin &lt;YOUR-PROJECT-URL&gt;
+git push -u origin master
+</code></pre>
+<p>后续不需要删除<code>public</code>文件，每次修改了站点内容之后，直接再次使用脚本进行部署。然后使用常规的方式将资源文件提交并更新至<code>GitHub</code>。</p>
+<pre><code>./deploy.sh &quot;Your optional commit message&quot;
+git add .
+git commit -m &quot;注释&quot;
+git push
+</code></pre>
+<h3 id=在新的环境继续工作>在新的环境继续工作</h3>
+<p>一旦转移到新的环境，在新的电脑上工作就可以把之前同步到<code>GitHub</code>上的博客源文件同步下来继续工作。当然在此之前需要在新的环境下安装Hugo。</p>
+<pre><code>brew install hugo
+</code></pre>
+<p>同之前新建站点一样，首先在终端中进入想要放置博客站点内容的目录下，使用<code>git clone</code>命令拉取<code>GitHub</code>上的仓库。然后将<code>submodule</code>初始化，并更新。</p>
+<pre><code>git clone &lt;YOUR-PROJECT-URL&gt; myblog &amp;&amp; cd &lt;YOUR-PROJECT&gt;
+git submodule init
+git submodule update
+</code></pre>
+<p>这个时候在新的环境中，两个子模块的仓库不在任何分支上，需要进入到对应的目录，然后使用<code>git checkout master</code>将分支切换到<code>master</code>上面。</p>
+<pre><code>cd public
+git checkout master
+cd ../themes/&lt;YOURTHEME&gt;
+git checkout master
+</code></pre>
+<p>接下来就可以在新的环境继续工作了。部署站点或者提交更新的资源文件和之前都一样。需要注意的是，新的环境因为是从<code>GitHub</code>上直接同步下来的，在原来的环境中使用<code>hugo new</code>命令创建的空文件夹不会同步。当需要的时候需要自行新建。Hugo新建站点的时候目录结构如下：</p>
+<pre><code>.
+├── archetypes
+├── config.toml
+├── content
+├── data
+├── layouts
+├── static
+└── themes
+</code></pre>
+<p>这些目录结构的具体用途可以查看<a href=https://gohugo.io/getting-started/directory-structure/>官方文档</a>。</p>
+<p>不论是在哪个环境对站点进行了更新，包括不限于修改配置文件、新建文章、删除文章等，都需要及时的将站点源文件提交和同步至<code>GitHub</code>。这样在其他环境才可以拉取最新的源文件，并继续工作。在使用了<code>git pull</code>拉取了站点源文件后，不要忘记使用<code>git submodule update</code>更新子模块。</p>
+<h3 id=git-submodule的简单说明><code>git submodule</code>的简单说明</h3>
+<p>本文采用的方法使用了<code>git submodule</code>，在这里对使用到的几个命令进行简单的说明，需要更多信息的可以查看<a href=https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97>官方文档</a>，或者网上搜索其他教程。子模块可以让用户在一个仓库中使用其他仓库的内容，并保持独立的提交。</p>
+<pre><code>git submodule add -b master https://github.com/&lt;OTHERPROJECT&gt;/&lt;OTHERPROJECT&gt;.github.io.git &lt;OTHERPROJECT&gt;
+</code></pre>
+<p>在现有的仓库中添加一个子模块。</p>
+<pre><code>git submodule init
+git submodule update
+</code></pre>
+<p>在当前仓库里面初始化和更新子模块。也可以使用<code>git submodule update --init</code>。或者使用<code>git clone &lt;YOUR-PROJECT-URL> myblog --recursive</code>在新的环境克隆仓库及所有子模块。</p>
+<pre><code>cd public
+git checkout master
+cd ../themes/&lt;YOURTHEME&gt;
+git checkout master
+</code></pre>
+<p>将子模块中的分支切换到<code>master</code>。</p>
+<h2 id=给博客配置自己的域名>给博客配置自己的域名</h2>
+<p>首先你需要有个域名，域名可以在腾讯云、阿里云、name等域名提供商购买。然后在域名的管理页面配置一个<code>www</code>子域名指向<code>&lt;USERNAME>.github.io</code>的<code>CNAME</code>记录。接下来需要前往<code>GitHub</code>的<code>&lt;USERNAME>.github.io</code>仓库的管理页面配置自定义域名。在仓库页面点击settings菜单，然后在Custom domain处填入你的域名，并勾选下面的Enforce HTTPS选框。</p>
+<p><img src=/post/%E4%BD%BF%E7%94%A8Hugo%E5%92%8CGitHub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2-1.jpg alt>
+<img src=/post/%E4%BD%BF%E7%94%A8Hugo%E5%92%8CGitHub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2-2.jpg alt></p>
+<section class=footnotes role=doc-endnotes>
+<hr>
+<ol>
+<li id=fn:1 role=doc-endnote>
+<p>本文是根据Mac系统的使用进行撰写的，使用其他系统的如果有不同之处还请参考官方文档。&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+</article>
+</section>
+<article class="ui segment post-disqus-area" data-html2canvas-ignore>
+<div id=disqus_thread></div>
+<script>var disqus_config=function(){this.page.url="https://www.zhangfelix.com/posts/%E4%BD%BF%E7%94%A8hugo%E5%92%8Cgithub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/",this.page.identifier="/posts/%E4%BD%BF%E7%94%A8hugo%E5%92%8Cgithub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"};(function(){var a=document,b=a.createElement('script');b.src='https://zhangfelix-blog.disqus.com/embed.js',b.setAttribute('data-timestamp',+new Date),(a.head||a.body).appendChild(b)})()</script>
+<noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+</article>
+<article class="ui segment utterances-comments" data-html2canvas-ignore>
+<script src=https://utteranc.es/client.js repo=zhangfelix/zhangfelix.github.io issue-term=og:title theme=github-light crossorigin=anonymous async></script>
+</article>
+</div>
+</div>
+<footer class="ui basic center aligned segment" style=background-color:transparent>
+<p>© 2020 - 2021 独白</p>
+<p>Powered by <a href=https://gohugo.io/ target=_blank>Hugo</a> with theme <a href=https://github.com/g1eny0ung/hugo-theme-dream target=_blank>Dream</a>.</p>
+</footer>
+</div>
+</section>
+<section class=back>
+<div class=dream-max-width>
+<header class="ui basic very padded segment dream-header">
+<div class="ui small circular image">
+<img src=/global/avatar.jpg alt=avatar>
+</div>
+<div class=content>
+<h1 class="ui medium header">zhangfelix's blog test<span class="sub header">Monologue</span>
+</h1>
+<article class="ui horizontal list">
+<a class=item href=/posts>
+<i class="archive icon" title=归档></i>
+</a>
+<a class=item href=/categories>
+<i class="th list icon" title=所有分类></i>
+</a>
+<a class=item href=/tags>
+<i class="tags icon" title=所有标签></i>
+</a>
+</article>
+<div class=dream-tags>
+<a class="ui label" href=/tags/github/ title=GitHub>
+GitHub
+</a>
+<a class="ui label" href=/tags/hugo/ title=Hugo>
+Hugo
+</a>
+<a class="ui label" href=/tags/python/ title=Python>
+Python
+</a>
+</div>
+</div>
+</header>
+<div class="ui relaxed grid dream-grid dream-back">
+<div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+<article class="ui segment markdown-body">
+<div class="ui medium header">Desc</div>
+<p>Hi, my name is Felix.</p>
+<p>This is my blog.</p>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+<article class="ui segment">
+<div class="ui medium header">社交链接</div>
+<nav class="ui secondary menu dream-menu dream-socials">
+<a class=item href=/index.xml>
+<i class="large rss square icon" title=RSS></i>
+</a>
+<a class=item href=mailto:zhn.i@hotmail.com>
+<i class="large mail icon" title=Email></i>
+</a>
+<a class=item href=https://twitter.com/zhangnfelix target=_blank>
+<i class="large twitter icon" title=Twitter></i>
+</a>
+<a class=item href=https://github.com/zhangfelix target=_blank>
+<i class="large github icon" title=GitHub></i>
+</a>
+</nav>
+</article>
+</div>
+<div class="sixteen wide mobile eight wide tablet four wide computer column dream-column">
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.6.0></script>
+<script src=https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js></script>
+<div class="ui segment" id=dream-search>
+<div class="ui search">
+<div class="ui transparent input">
+<input class=prompt type=text placeholder=搜索>
+</div>
+<div class=results></div>
+</div>
+</div>
+<script>$(document).ready(function(){$.getJSON('https://www.zhangfelix.com/index.json',function(a){$('.ui.search').search({source:a,searchFields:['title'],showNoResults:!1})})})</script>
+<script src=/js/search.js></script>
+<script>window.background="#fff",window.defaultDark=null,window.backgroundDark="black",window.backgroundImageDark="/global/backgroundDark.jpg",window.darkNav=null,window.maxTags=null,window.hasTwitterEmbed=null,window.fixedNav=!0,window.hasTwitterEmbed&&(window.twttr=function(c,d,e){var b,f=c.getElementsByTagName(d)[0],a=window.twttr||{};return c.getElementById(e)?a:(b=c.createElement(d),b.id=e,b.src='https://platform.twitter.com/widgets.js',f.parentNode.insertBefore(b,f),a._e=[],a.ready=function(b){a._e.push(b)},a)}(document,'script','twitter-wjs'))</script>
+<script src=https://cdn.jsdelivr.net/npm/overlayscrollbars@1.13.1/js/jquery.overlayScrollbars.min.js></script>
+<script src=/js/header.js></script>
+<script src=/js/main.js></script>
+<script src=/js/theme.js></script>
+<script src=https://cdn.jsdelivr.net/npm/luxon@1.26.0></script>
+<script>format();function format(){$('span[data-format="luxon"]').each(function(){var a=$(this).text();$(this).text(luxon.DateTime.fromISO(a,{locale:"zh"}).toFormat("yyyy年MM月dd日"))})}</script>
+<script src=/js/scrollToTop.js></script>
+<script src=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/highlight.min.js></script>
+<script src=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/ocaml.min.js></script>
+<script src=https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/languages/python.min.js></script>
+<script>hljs.highlightAll(),setHighlightTheme();function setHighlightTheme(){var a=localStore.getItem('hugo-theme-dream-is-dark'),b,c,d;a=a?a:window.defaultDark?'y':a,b="gruvbox-light",c="gruvbox-dark",d=a==='y'?c:b,$('link[data-highlight]').attr('href','https://cdn.jsdelivr.net/gh/highlightjs/cdn-release/build/styles/'+d+'.min.css'),$('pre').css('background',a==='y'?'#333':'')}</script>
+<script src=https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1></script>
+<script src=/js/post.js defer></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-169268545-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+</body>
+</html>
