@@ -26,7 +26,7 @@ disqusShortname = "zhangfelix-blog"
   author = "Felix"
   description = "我的声音"
   avatar = "/global/avatar.jpg"
-  headerTitle = "zhangfelix's blog"
+  headerTitle = "zhangfelix's blog test"
   motto = "Monologue"
 
   rss = true
