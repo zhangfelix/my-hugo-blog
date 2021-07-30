@@ -39,7 +39,9 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          deploy_key: ${{ secrets.ZHANGFELIX_GITHUB_IO_DEPLOY }}
+          external_repository: zhangfelix/zhangfelix.github.io
+          publish_branch: master
           publish_dir: ./public
 
       # Runs a single command using the runners shell
