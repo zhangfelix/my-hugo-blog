@@ -10,7 +10,7 @@ printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
 git add .
 
 # Commit changes.
-git commit -m "$msg"
+git commit -m "$*"
 
 # Push site source.
 git push origin master
