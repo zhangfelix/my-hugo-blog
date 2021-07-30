@@ -1,7 +1,7 @@
 ---
 title: 使用GitHub_Actions部署静态博客（HUGO）
-date: 2021-07-30T16:30:12+08:00
-lastmod: 2021-07-30T16:30:12+08:00
+date: 2021-07-30T18:00:12+08:00
+lastmod: 2021-07-30T18:00:12+08:00
 author: Felix
 cover: /post/使用GitHub_Actions部署静态博客（HUGO）_cover.jpg
 categories: ["技术"]
