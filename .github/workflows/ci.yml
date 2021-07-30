@@ -43,6 +43,7 @@ jobs:
           external_repository: zhangfelix/zhangfelix.github.io
           publish_branch: master
           publish_dir: ./public
+          cname: www.zhangfelix.com
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
